@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PM Process Groups Study Guide</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #ffffff; --bg2: #f5f4f0; --bg3: #eceae3;
+  --text: #1a1a18; --text2: #5c5c58; --text3: #9c9a92;
+  --border: rgba(0,0,0,0.12); --border2: rgba(0,0,0,0.2);
+  --radius: 12px; --radius-sm: 8px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1c1c1a; --bg2: #252523; --bg3: #2e2e2b;
+    --text: #e8e6de; --text2: #9c9a92; --text3: #6a6864;
+    --border: rgba(255,255,255,0.1); --border2: rgba(255,255,255,0.18);
+  }
+  .pill.in  { background: #042C53 !important; color: #85B7EB !important; border-color: #185FA5 !important; }
+  .pill.tool{ background: #04342C !important; color: #5DCAA5 !important; border-color: #0F6E56 !important; }
+  .pill.out { background: #412402 !important; color: #EF9F27 !important; border-color: #854F0B !important; }
+}
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); padding: 24px 20px 48px; max-width: 960px; margin: 0 auto; line-height: 1.6; }
+h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
+.subtitle { font-size: 13px; color: var(--text2); margin-bottom: 24px; }
+.tab-bar { display: flex; gap: 0; border-bottom: 0.5px solid var(--border); margin-bottom: 20px; }
+.tab { font-size: 13px; padding: 8px 16px; cursor: pointer; color: var(--text2); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .15s; background: none; border-top: none; border-left: none; border-right: none; }
+.tab:hover { color: var(--text); }
+.tab.active { color: var(--text); font-weight: 500; border-bottom-color: #1D9E75; }
+.nav { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+.nav-btn { padding: 7px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; border: 0.5px solid var(--border2); background: var(--bg); color: var(--text2); transition: all .18s; }
+.nav-btn:hover { background: var(--bg2); color: var(--text); }
+.nav-btn.active { color: white; border-color: transparent; }
+.nav-btn[data-phase="init"].active  { background: #185FA5; }
+.nav-btn[data-phase="plan"].active  { background: #0F6E56; }
+.nav-btn[data-phase="exec"].active  { background: #854F0B; }
+.nav-btn[data-phase="mc"].active    { background: #993C1D; }
+.nav-btn[data-phase="close"].active { background: #3C3489; }
+.phase-header { margin-bottom: 16px; padding: 14px 18px; border-radius: var(--radius); display: flex; align-items: center; gap: 12px; }
+.phase-emoji { font-size: 24px; }
+.phase-title { font-size: 18px; font-weight: 500; color: var(--text); }
+.phase-desc  { font-size: 13px; color: var(--text2); margin-top: 2px; }
+.process-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.card { background: var(--bg); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 14px 16px; cursor: pointer; transition: all .18s; }
+.card:hover { border-color: var(--border2); transform: translateY(-1px); }
+.card-tag { font-size: 11px; font-weight: 500; padding: 3px 9px; border-radius: 12px; display: inline-block; margin-bottom: 8px; }
+.card-title { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 5px; }
+.card-summary { font-size: 12px; color: var(--text2); line-height: 1.55; }
+.card-expand { margin-top: 10px; display: none; }
+.card-expand.open { display: block; }
+.itto-row { display: flex; gap: 6px; flex-wrap: wrap; margin: 6px 0; }
+.itto-label { font-size: 11px; font-weight: 500; color: var(--text3); margin-top: 6px; }
+.pill { font-size: 11px; padding: 3px 8px; border-radius: 10px; background: var(--bg2); color: var(--text2); border: 0.5px solid var(--border); }
+.pill.in   { background: #E6F1FB; color: #0C447C; border-color: #B5D4F4; }
+.pill.tool { background: #E1F5EE; color: #085041; border-color: #9FE1CB; }
+.pill.out  { background: #FAEEDA; color: #633806; border-color: #FAC775; }
+.card-chevron { float: right; font-size: 11px; color: var(--text3); transition: transform .2s; }
+.card-chevron.open { transform: rotate(180deg); }
+.tip-box { background: var(--bg2); border-left: 3px solid #1D9E75; border-radius: 0 8px 8px 0; padding: 8px 12px; margin-top: 8px; font-size: 12px; color: var(--text2); line-height: 1.5; }
+.overview-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 20px; }
+@media (max-width: 700px) { .overview-grid { grid-template-columns: 1fr 1fr; } }
+.ov-col { border-radius: 10px; padding: 10px 8px; }
+.ov-col-title { font-size: 11px; font-weight: 500; margin-bottom: 6px; text-align: center; }
+.ov-item { font-size: 10px; background: var(--bg); border-radius: 6px; padding: 4px 6px; margin-bottom: 4px; color: var(--text2); line-height: 1.4; cursor: pointer; border: 0.5px solid var(--border); }
+.ov-item:hover { border-color: var(--border2); }
+.note { font-size: 12px; color: var(--text3); margin-top: 14px; }
+#app { min-height: 400px; }
+</style>
+</head>
+<body>
+<h1>PM Process Groups Study Guide</h1>
+<p class="subtitle">PMI — All 5 process groups, 49 processes, ITTO breakdowns &amp; exam tips</p>
+<div id="app"></div>
+
+<script>
+const phases = {
+  init: {
+    label:"Initiating",emoji:"🚀",color:"#185FA5",desc:"Formally authorize the project and identify key stakeholders",bg:"#004380",
+    processes:[
+      {name:"Develop Project Charter",tag:"Integration",tagColor:"#185FA5",tagBg:"#E6F1FB",summary:"Formally authorizes the project, assigns the PM, and outlines high-level objectives, risks, budget, and schedule.",inputs:["Business Documents","Agreements","EEF","OPA"],tools:["Expert Judgment","Data Gathering","Interpersonal & Team Skills","Meetings"],outputs:["Project Charter","Assumption Log"],tip:"The charter is signed by senior management. Once approved, the project is officially launched."},
+      {name:"Identify Stakeholders",tag:"Stakeholder",tagColor:"#0F6E56",tagBg:"#E1F5EE",summary:"Identify all people/groups affected by the project, analyze their interests, power, and involvement.",inputs:["Project Charter","Business Documents","PM Plan","Project Docs","Agreements","EEF","OPA"],tools:["Expert Judgment","Data Gathering","Data Analysis","Data Representation","Meetings"],outputs:["Stakeholder Register","Change Requests","PM Plan Updates","Project Doc Updates"],tip:"Tools include Power/Interest Grid, Stakeholder Cube, Salience Model, and Directions of Influence (Upward/Downward/Outward/Sideward)."}
+    ]
+  },
+  plan: {
+    label:"Planning",emoji:"📋",color:"#0F6E56",desc:"Define scope, schedule, cost, quality, resources, risk, procurement, and stakeholder engagement",bg:"#004030",
+    processes:[
+      {name:"Develop PM Plan",tag:"Integration",tagColor:"#185FA5",tagBg:"#E6F1FB",summary:"Consolidates all subsidiary plans (14 plans) and 4 baselines (Scope, Schedule, Cost, Performance) into one comprehensive document.",inputs:["Project Charter","Outputs from Other Processes","EEF","OPA"],tools:["Expert Judgment","Data Gathering","Interpersonal & Team Skills","Meetings"],outputs:["Project Management Plan"],tip:"Only changed when a Change Request is approved by the Change Control Board (CCB)."},
+      {name:"Plan Scope Management",tag:"Scope",tagColor:"#3C3489",tagBg:"#EEEDFE",summary:"Documents how scope will be defined, validated, and controlled. Prevents gold plating and scope creep.",inputs:["Project Charter","PM Plan","EEF","OPA"],tools:["Expert Judgment","Data Analysis","Meetings"],outputs:["Scope Management Plan","Requirements Management Plan"],tip:"Product Scope = features. Project Scope = work needed to deliver those features."},
+      {name:"Collect Requirements",tag:"Scope",tagColor:"#3C3489",tagBg:"#EEEDFE",summary:"Determine, document, and manage stakeholder needs. Closely linked to schedule, budget, risk, and quality.",inputs:["Project Charter","PM Plan","Project Docs","Business Docs","Agreements","EEF","OPA"],tools:["Expert Judgment","Data Gathering","Data Analysis","Decision Making","Data Representation","Interpersonal Skills","Context Diagram","Prototypes"],outputs:["Requirements Documentation","Requirements Traceability Matrix"],tip:"RTM tracks each requirement back to its source stakeholder and status (completed/in progress/delayed/cancelled)."},
+      {name:"Define Scope",tag:"Scope",tagColor:"#3C3489",tagBg:"#EEEDFE",summary:"Develop a detailed description of the project and product. Greater detail = less risk and less scope creep.",inputs:["Project Charter","PM Plan","Project Docs","EEF","OPA"],tools:["Expert Judgment","Data Analysis","Decision Making","Interpersonal Skills","Product Analysis"],outputs:["Project Scope Statement","Project Doc Updates"],tip:"Product Analysis tools: product breakdown, system analysis, system requirements analysis."},
+      {name:"Create WBS",tag:"Scope",tagColor:"#3C3489",tagBg:"#EEEDFE",summary:"Subdivide deliverables into smaller, manageable work packages. If it's not in the WBS, it's not in the project.",inputs:["PM Plan","Project Docs","EEF","OPA"],tools:["Decomposition","Expert Judgment"],outputs:["Scope Baseline (Scope Statement + WBS + WBS Dictionary)","Project Doc Updates"],tip:"Each WBS node has a unique ID. WBS Dictionary adds details: assigned team, time/cost estimate, quality requirements, milestones."},
+      {name:"Plan Schedule Management",tag:"Schedule",tagColor:"#854F0B",tagBg:"#FAEEDA",summary:"Establish policies and procedures for planning, developing, managing, executing, and controlling the schedule.",inputs:["Project Charter","PM Plan","EEF","OPA"],tools:["Expert Judgment","Data Analysis","Meetings"],outputs:["Schedule Management Plan"],tip:"Defines: levels of accuracy, rules of performance measurement, reporting formats, iteration length."},
+      {name:"Define Activities",tag:"Schedule",tagColor:"#854F0B",tagBg:"#FAEEDA",summary:"Identify and document specific actions to produce deliverables. Decomposes work packages into schedule activities.",inputs:["PM Plan","EEF","OPA"],tools:["Expert Judgment","Decomposition","Rolling Wave Planning","Meetings"],outputs:["Activity List","Activity Attributes","Milestone List","Change Requests","PM Plan Updates"],tip:"Rolling Wave Planning = progressive elaboration. Near-term work is detailed; long-term is a placeholder."},
+      {name:"Sequence Activities",tag:"Schedule",tagColor:"#854F0B",tagBg:"#FAEEDA",summary:"Identify and document relationships among activities to obtain the greatest efficiency.",inputs:["PM Plan","Project Docs","EEF","OPA"],tools:["Precedence Diagramming Method","Dependency Determination","Leads and Lags","PMIS"],outputs:["Project Schedule Network Diagrams","Project Doc Updates"],tip:"4 relationships: FS (most common), FF, SS, SF. Dependencies: Mandatory (Hard) / Discretionary (Soft) / External / Internal."},
+      {name:"Estimate Activity Durations",tag:"Schedule",tagColor:"#854F0B",tagBg:"#FAEEDA",summary:"Estimate work periods needed to complete each activity. Best done by the person most familiar with the work.",inputs:["PM Plan","Project Docs","EEF","OPA"],tools:["Expert Judgment","Analogous","Parametric","Three-Point (PERT)","Bottom-Up","Data Analysis","Decision Making","Meetings"],outputs:["Duration Estimates","Basis of Estimates","Project Doc Updates"],tip:"PERT: (O + 4M + P) / 6. Std Dev: (P − O) / 6. Triangle: (O + M + P) / 3."},
+      {name:"Develop Schedule",tag:"Schedule",tagColor:"#854F0B",tagBg:"#FAEEDA",summary:"Analyze sequences, durations, resources, and constraints to create a schedule model with planned dates.",inputs:["PM Plan","Project Docs","Agreements","EEF","OPA"],tools:["Network Analysis","Critical Path Method","Resource Optimization","Data Analysis","Schedule Compression","PMIS","Agile Release Planning"],outputs:["Schedule Baseline","Project Schedule","Schedule Data","Project Calendars","Change Requests","PM Plan Updates"],tip:"Crashing: add resources, always adds cost. Fast Tracking: parallel activities, may increase risk."},
+      {name:"Plan Cost Management",tag:"Cost",tagColor:"#A32D2D",tagBg:"#FCEBEB",summary:"Define how project costs will be estimated, budgeted, managed, monitored, and controlled.",inputs:["Project Charter","PM Plan","EEF","OPA"],tools:["Expert Judgment","Data Analysis","Meetings"],outputs:["Cost Management Plan"],tip:"Cost types: Fixed, Variable, Direct, Indirect, Sunk. Value Engineering = finding less costly ways to achieve the same scope."},
+      {name:"Estimate Costs",tag:"Cost",tagColor:"#A32D2D",tagBg:"#FCEBEB",summary:"Develop approximation of resource costs. Accuracy increases as the project progresses.",inputs:["PM Plan","Project Docs","EEF","OPA"],tools:["Expert Judgment","Analogous","Parametric","Bottom-Up","Three-Point","Data Analysis","PMIS","Decision Making"],outputs:["Cost Estimates","Basis of Estimates","Project Doc Updates"],tip:"Estimate ranges: Definitive (−5% to +10%), Budget (−10% to +25%), ROM (−25% to +75%)."},
+      {name:"Determine Budget",tag:"Cost",tagColor:"#A32D2D",tagBg:"#FCEBEB",summary:"Aggregate estimated costs to establish an authorized cost baseline. Typically shown as an S-curve.",inputs:["PM Plan","Project Docs","Business Docs","Agreements","EEF","OPA"],tools:["Expert Judgment","Cost Aggregation","Data Analysis","Historical Information Review","Funding Limit Reconciliation","Financing"],outputs:["Cost Baseline","Project Funding Requirements","Project Doc Updates"],tip:"Cost Baseline includes contingency reserves. Project Budget = Cost Baseline + Management Reserves."},
+      {name:"Plan Quality Management",tag:"Quality",tagColor:"#533AB7",tagBg:"#EEEDFE",summary:"Identify quality requirements and standards; document how compliance will be demonstrated.",inputs:["Project Charter","PM Plan","Project Docs","EEF","OPA"],tools:["Expert Judgment","Data Gathering","Data Analysis","Decision Making","Data Representation","Test & Inspection Planning","Meetings"],outputs:["Quality Management Plan","Quality Metrics","PM Plan Updates","Project Doc Updates"],tip:"Cost of Quality: Conformance (prevention + appraisal) vs Non-Conformance (internal + external failure costs)."},
+      {name:"Plan Resource Management",tag:"Resource",tagColor:"#0F6E56",tagBg:"#E1F5EE",summary:"Describe how to estimate, acquire, manage, and use team and physical resources.",inputs:["Project Charter","PM Plan","Project Docs","EEF","OPA"],tools:["Expert Judgment","Data Representation","Organizational Theory","Meetings"],outputs:["Resource Management Plan","Team Charter","Project Doc Updates"],tip:"RACI Chart: R=Responsible, A=Accountable, C=Consulted, I=Informed. Team Charter defines behavioral expectations."},
+      {name:"Estimate Activity Resources",tag:"Resource",tagColor:"#0F6E56",tagBg:"#E1F5EE",summary:"Determine what and how many resources (people, equipment, materials) are needed for each activity.",inputs:["PM Plan","Project Docs","EEF","OPA"],tools:["Expert Judgment","Bottom-Up","Analogous","Parametric","Data Analysis","PMIS","Meetings"],outputs:["Resource Requirements","Basis of Estimates","Resource Breakdown Structure","Project Doc Updates"],tip:"Resource Breakdown Structure = hierarchical breakdown of resources by category and type."},
+      {name:"Plan Communications Management",tag:"Comms",tagColor:"#185FA5",tagBg:"#E6F1FB",summary:"Develop approach for project communications based on stakeholder information needs.",inputs:["Project Charter","PM Plan","Project Docs","EEF","OPA"],tools:["Expert Judgment","Comm Requirements Analysis","Comm Technology","Comm Models","Comm Methods","Interpersonal Skills","Data Representation","Meetings"],outputs:["Communications Management Plan","PM Plan Updates","Project Doc Updates"],tip:"Communication channels formula: n(n−1)/2. For 10 stakeholders = 45 channels."},
+      {name:"Plan Risk Management",tag:"Risk",tagColor:"#993C1D",tagBg:"#FAECE7",summary:"Define how to conduct risk management activities. A proactive approach done early in the project.",inputs:["Project Charter","PM Plan","Project Docs","EEF","OPA"],tools:["Expert Judgment","Data Analysis","Meetings"],outputs:["Risk Management Plan"],tip:"Risk Management Plan is the roadmap for all 6 risk processes. Includes RBS and stakeholders' risk appetite."},
+      {name:"Identify Risks",tag:"Risk",tagColor:"#993C1D",tagBg:"#FAECE7",summary:"Identify individual project risks and overall project risk sources. Done throughout the project — risk changes daily.",inputs:["PM Plan","Project Docs","Agreements","Procurement Docs","EEF","OPA"],tools:["Expert Judgment","Data Gathering","Data Analysis","Interpersonal Skills","Prompt Lists","Meetings"],outputs:["Risk Register","Risk Report","Project Doc Updates"],tip:"SWOT Analysis and Root Cause Analysis are key tools. Risk Register lists all risks, responses, causes, and categories."},
+      {name:"Perform Qualitative Risk Analysis",tag:"Risk",tagColor:"#993C1D",tagBg:"#FAECE7",summary:"Prioritize individual risks by probability and impact to determine which need the most attention.",inputs:["PM Plan","Project Docs","EEF","OPA"],tools:["Expert Judgment","Data Gathering","Data Analysis","Interpersonal Skills","Risk Categorization","Data Representation","Meetings"],outputs:["Project Doc Updates"],tip:"Probability & Impact Matrix ranks risks High/Medium/Low. Score = Probability × Impact (1–5 scale)."},
+      {name:"Perform Quantitative Risk Analysis",tag:"Risk",tagColor:"#993C1D",tagBg:"#FAECE7",summary:"Numerically analyze the effect of individual risks on overall project objectives. Assigns values to prioritized risks.",inputs:["PM Plan","Project Docs","EEF","OPA"],tools:["Expert Judgment","Data Gathering","Interpersonal Skills","Representations of Uncertainty","Data Analysis"],outputs:["Project Doc Updates"],tip:"Tools: Decision Tree (EMV = Probability × Risk Cost), Tornado Chart (Sensitivity Analysis), Monte Carlo Simulation."},
+      {name:"Plan Risk Responses",tag:"Risk",tagColor:"#993C1D",tagBg:"#FAECE7",summary:"Develop options and strategies to address identified risks — both threats and opportunities.",inputs:["PM Plan","Project Docs","EEF","OPA"],tools:["Expert Judgment","Data Gathering","Interpersonal Skills","Strategies for Threats","Strategies for Opportunities","Contingent Response Strategies","Data Analysis","Decision Making"],outputs:["Change Requests","PM Plan Updates","Project Doc Updates"],tip:"Threats: Escalate, Avoid, Transfer, Mitigate, Accept. Opportunities: Escalate, Exploit, Share, Enhance, Accept."},
+      {name:"Plan Procurement Management",tag:"Procurement",tagColor:"#3C3489",tagBg:"#EEEDFE",summary:"Determine whether to buy goods/services externally; document what, how, and when to procure.",inputs:["Project Charter","Business Docs","PM Plan","Project Docs","EEF","OPA"],tools:["Expert Judgment","Data Gathering","Data Analysis","Source Selection Analysis","Meetings"],outputs:["Procurement Management Plan","Procurement Strategy","Bid Documents","Procurement SOW","Source Selection Criteria","Make-or-Buy Decisions","Independent Cost Estimates","Change Requests"],tip:"Bid Documents: RFI, IFB, RFP, RFQ. Contract Types: Fixed-Price, Cost-Reimbursable, Time & Material."},
+      {name:"Plan Stakeholder Engagement",tag:"Stakeholder",tagColor:"#0F6E56",tagBg:"#E1F5EE",summary:"Develop methods to involve stakeholders based on their needs, expectations, and potential impact.",inputs:["Project Charter","PM Plan","Project Docs","EEF","OPA"],tools:["Expert Judgment","Data Gathering","Data Analysis","Decision Making","Data Representation","Meetings"],outputs:["Stakeholder Engagement Plan"],tip:"Engagement levels: Unaware → Resistant → Neutral → Supportive → Leading. Track current vs desired on Engagement Assessment Matrix."}
+    ]
+  },
+  exec: {
+    label:"Executing",emoji:"⚙️",color:"#854F0B",desc:"Perform the work defined in the PM plan; manage people, quality, knowledge, and procurement",bg:"#543500",
+    processes:[
+      {name:"Direct & Manage Project Work",tag:"Integration",tagColor:"#185FA5",tagBg:"#E6F1FB",summary:"Perform the work, manage people, implement approved changes. Summary of all executing processes.",inputs:["PM Plan","Project Docs","Approved Change Requests","EEF","OPA"],tools:["Expert Judgment","PMIS","Meetings"],outputs:["Deliverables","Work Performance Data","Issue Log","Change Requests","PM Plan Updates","Project Doc Updates","OPA Updates"],tip:"Change Requests include: Corrective Action (fix past errors), Preventive Action (fix future errors), Defect Repair."},
+      {name:"Manage Project Knowledge",tag:"Integration",tagColor:"#185FA5",tagBg:"#E6F1FB",summary:"Use existing knowledge and create new knowledge to achieve objectives and contribute to organizational learning.",inputs:["PM Plan","Project Docs","Deliverables","EEF","OPA"],tools:["Expert Judgment","Knowledge Management","Information Management","Interpersonal Skills"],outputs:["Lessons Learned Register","PM Plan Updates","OPA Updates"],tip:"Explicit knowledge = documented (data, records). Tacit knowledge = in people's heads (experience). Gather throughout the project, not just at the end."},
+      {name:"Manage Quality",tag:"Quality",tagColor:"#533AB7",tagBg:"#EEEDFE",summary:"Translate quality plan into executable activities. Also called Quality Assurance. Confirms processes meet quality objectives.",inputs:["PM Plan","Project Docs","OPA"],tools:["Data Gathering","Data Analysis","Decision Making","Data Representation","Audits","Design for X","Problem Solving","Quality Improvement Methods"],outputs:["Quality Reports","Test and Evaluation Documents","Change Requests","PM Plan Updates","Project Doc Updates"],tip:"Tools: Fishbone/Ishikawa Diagram, Pareto (80/20 rule), Histograms, Scatter Diagrams, Flowcharts, Affinity Diagrams."},
+      {name:"Acquire Resources",tag:"Resource",tagColor:"#0F6E56",tagBg:"#E1F5EE",summary:"Get staff and physical resources needed to build deliverables. Done continuously — both internal and external.",inputs:["PM Plan","Project Docs","EEF","OPA"],tools:["Decision Making","Interpersonal Skills","Pre-Assignment","Virtual Teams"],outputs:["Physical Resource Assignments","Project Team Assignments","Resource Calendars","Change Requests","PM Plan Updates"],tip:"Multi-Criteria Decision Analysis considers: availability, cost, experience, ability, knowledge, skills, attitude."},
+      {name:"Develop Team",tag:"Resource",tagColor:"#0F6E56",tagBg:"#E1F5EE",summary:"Improve abilities, communication, and overall team atmosphere. PM is primarily responsible for team cohesion.",inputs:["PM Plan","Project Docs","EEF","OPA"],tools:["Colocation","Virtual Teams","Comm Technology","Interpersonal Skills","Recognition & Rewards","Training","Individual & Team Assessments","Meetings"],outputs:["Team Performance Assessments","Change Requests","PM Plan Updates","Project Doc Updates","EEF Updates","OPA Updates"],tip:"Tuckman's 5 Stages: Forming → Storming → Norming → Performing → Adjourning. Also: Maslow, Herzberg, Theory X/Y/Z, McClelland."},
+      {name:"Manage Team",tag:"Resource",tagColor:"#0F6E56",tagBg:"#E1F5EE",summary:"Track performance, provide feedback, resolve issues, manage team changes. Focus on communication and conflict management.",inputs:["PM Plan","Project Docs","Work Performance Reports","Team Performance Assessments","EEF","OPA"],tools:["Interpersonal Skills","PMIS"],outputs:["Change Requests","PM Plan Updates","Project Doc Updates","EEF Updates"],tip:"Conflict Resolution (best to worst): Problem Solving (Win-Win) → Compromising → Forcing (Win-Lose) → Smoothing → Withdrawal."},
+      {name:"Manage Communications",tag:"Comms",tagColor:"#185FA5",tagBg:"#E6F1FB",summary:"Ensure timely and suitable gathering, creation, distribution, storage, retrieval, and monitoring of communications.",inputs:["PM Plan","Project Docs","EEF","OPA"],tools:["Comm Technology","Comm Methods","Comm Skills","PMIS","Project Reporting","Interpersonal Skills","Meetings"],outputs:["Project Communications","PM Plan Updates","Project Doc Updates","OPA Updates"],tip:"Methods: Formal Written (contracts), Formal Verbal (presentations), Informal Written (email), Informal Verbal (calls). Push/Pull/Interactive."},
+      {name:"Implement Risk Responses",tag:"Risk",tagColor:"#993C1D",tagBg:"#FAECE7",summary:"Execute risk response plans when risks occur. Minimizes threats and maximizes opportunities.",inputs:["PM Plan","Project Docs","OPA"],tools:["Expert Judgment","Interpersonal Skills","Influencing","PMIS"],outputs:["Change Requests","Project Doc Updates"],tip:"This is about actually executing the plans made in 'Plan Risk Responses'. Planning ≠ implementation."},
+      {name:"Conduct Procurements",tag:"Procurement",tagColor:"#3C3489",tagBg:"#EEEDFE",summary:"Obtain seller responses, select a seller, and award a contract to a qualified seller.",inputs:["PM Plan","Project Docs","Procurement Documentation","Seller Proposals","EEF","OPA"],tools:["Expert Judgment","Advertising","Bidder Conferences","Data Analysis","Interpersonal Skills"],outputs:["Selected Sellers","Agreements","Change Requests","PM Plan Updates","Project Doc Updates","OPA Updates"],tip:"Bidder Conference (Pre-bid/Contractor Conference): meeting between buyer and all prospective sellers to ensure fairness."},
+      {name:"Manage Stakeholder Engagement",tag:"Stakeholder",tagColor:"#0F6E56",tagBg:"#E1F5EE",summary:"Communicate and work with stakeholders to meet their needs, address issues, and keep them involved.",inputs:["PM Plan","Project Docs","EEF","OPA"],tools:["Expert Judgment","Comm Skills","Feedback","Interpersonal Skills","Ground Rules","Meetings"],outputs:["Change Requests","PM Plan Updates","Project Doc Updates"],tip:"Ground Rules are defined in the Team Charter and apply to both team members and stakeholders."}
+    ]
+  },
+  mc: {
+    label:"Monitoring & Controlling",emoji:"👁",color:"#993C1D",desc:"Track, review, and regulate project progress and performance; manage changes",bg:"#711e00",
+    processes:[
+      {name:"Monitor & Control Project Work",tag:"Integration",tagColor:"#185FA5",tagBg:"#E6F1FB",summary:"Track, review, and record progress. Converts Work Performance Information into Work Performance Reports.",inputs:["PM Plan","Project Docs","Work Performance Information","Agreements","EEF","OPA"],tools:["Expert Judgment","Data Analysis","Decision Making","Meetings"],outputs:["Work Performance Reports","Change Requests","PM Plan Updates","Project Doc Updates"],tip:"Data flow: Work Performance Data (raw) → Work Performance Information (analyzed) → Work Performance Reports (decisions)."},
+      {name:"Perform Integrated Change Control",tag:"Integration",tagColor:"#185FA5",tagBg:"#E6F1FB",summary:"Review all change requests; approve, defer, or reject changes. Managed by the Change Control Board (CCB).",inputs:["PM Plan","Project Docs","Risk Report","Work Performance Reports","Change Requests","EEF","OPA"],tools:["Expert Judgment","Change Control Tools","Data Analysis","Decision Making","Meetings"],outputs:["Approved Change Requests","PM Plan Updates","Project Doc Updates"],tip:"Change process: Identify need → PM assesses impact → CCB approves/rejects → Update PM Plan → Manage to new plan."},
+      {name:"Validate Scope",tag:"Scope",tagColor:"#3C3489",tagBg:"#EEEDFE",summary:"Formalize customer acceptance of completed deliverables. Concerned with correctness and formal acceptance.",inputs:["PM Plan","Project Docs","Verified Deliverables","Work Performance Data"],tools:["Inspection","Decision Making"],outputs:["Accepted Deliverables","Work Performance Information","Change Requests","Project Doc Updates"],tip:"Done after (or same time as) Control Quality. Accepted Deliverables can trigger Close Project/Phase."},
+      {name:"Control Scope",tag:"Scope",tagColor:"#3C3489",tagBg:"#EEEDFE",summary:"Monitor project scope and manage changes to the scope baseline. Prevents scope creep (unauthorized changes).",inputs:["PM Plan","Project Docs","Work Performance Data","OPA"],tools:["Data Analysis"],outputs:["Work Performance Information","Change Requests","PM Plan Updates","Project Doc Updates"],tip:"Variance Analysis: what is the cause and extent of scope variance? Is corrective/preventive action needed?"},
+      {name:"Control Schedule",tag:"Schedule",tagColor:"#854F0B",tagBg:"#FAEEDA",summary:"Monitor schedule status, manage changes to the schedule baseline, and compare results to the plan.",inputs:["PM Plan","Project Docs","Work Performance Data","OPA"],tools:["Data Analysis","Critical Path Method","PMIS","Resource Optimization","Leads & Lags","Schedule Compression"],outputs:["Work Performance Information","Schedule Forecasts","Change Requests","PM Plan Updates","Project Doc Updates"],tip:"Earned Value Analysis measures schedule performance. Schedule Forecasts use past and expected future performance."},
+      {name:"Control Costs",tag:"Cost",tagColor:"#A32D2D",tagBg:"#FCEBEB",summary:"Monitor project costs, manage changes to the cost baseline. Budget increases require Integrated Change Control.",inputs:["PM Plan","Project Docs","Project Funding Requirements","Work Performance Data","OPA"],tools:["Expert Judgment","Data Analysis","To-Complete Performance Index","PMIS"],outputs:["Work Performance Information","Cost Forecasts","Change Requests","PM Plan Updates","Project Doc Updates"],tip:"Key EVM formulas: EAC (Estimate at Completion), TCPI (To-Complete Performance Index)."},
+      {name:"Control Quality",tag:"Quality",tagColor:"#533AB7",tagBg:"#EEEDFE",summary:"Assess performance; ensure deliverables are complete, correct, and meet expectations. Each deliverable is inspected.",inputs:["PM Plan","Project Docs","Approved Change Requests","Deliverables","Work Performance Data","EEF","OPA"],tools:["Data Gathering","Data Analysis","Inspection","Testing/Product Evaluations","Data Representation","Meetings"],outputs:["Quality Control Measurements","Verified Deliverables","Work Performance Information","Change Requests","PM Plan Updates","Project Doc Updates"],tip:"Tools: Control Charts (Rule of Seven), Pareto, Scatter Diagrams, Histograms. Verified Deliverables feed into Validate Scope."},
+      {name:"Control Resources",tag:"Resource",tagColor:"#0F6E56",tagBg:"#E1F5EE",summary:"Ensure physical resources are used correctly and efficiently. Does not cover HR resources (that's Manage Team).",inputs:["PM Plan","Project Docs","Work Performance Data","Agreements","OPA"],tools:["Data Analysis","Problem Solving","Interpersonal Skills","PMIS"],outputs:["Work Performance Information","Change Requests","PM Plan Updates","Project Doc Updates"],tip:"Focus is on materials, equipment, facilities — not people. People are managed in 'Manage Team'."},
+      {name:"Monitor Communications",tag:"Comms",tagColor:"#185FA5",tagBg:"#E6F1FB",summary:"Ensure communications requirements are met; verify the communications management plan is being followed.",inputs:["PM Plan","Project Docs","Work Performance Data","EEF","OPA"],tools:["Expert Judgment","PMIS","Data Analysis","Interpersonal Skills","Meetings"],outputs:["Work Performance Information","Change Requests","PM Plan Updates","Project Doc Updates"],tip:"Verifies that the right people get the right information at the right time."},
+      {name:"Monitor Risks",tag:"Risk",tagColor:"#993C1D",tagBg:"#FAECE7",summary:"Monitor risk response plans, track identified risks, identify new risks, and evaluate effectiveness. Ongoing — 24/7/365.",inputs:["PM Plan","Project Docs","Work Performance Data","Work Performance Reports"],tools:["Data Analysis","Audits","Meetings"],outputs:["Work Performance Information","Change Requests","PM Plan Updates","Project Doc Updates","OPA Updates"],tip:"Unlike other monitoring processes, this one takes Work Performance REPORTS (not just data) as input."},
+      {name:"Control Procurements",tag:"Procurement",tagColor:"#3C3489",tagBg:"#EEEDFE",summary:"Manage procurement relationships, monitor contract performance, make corrections, and close out contracts.",inputs:["PM Plan","Project Docs","Agreements","Procurement Docs","Approved Change Requests","Work Performance Data","EEF","OPA"],tools:["Expert Judgment","Claims Administration","Data Analysis","Inspection","Audits"],outputs:["Closed Procurements","Work Performance Information","Procurement Doc Updates","Change Requests","PM Plan Updates","Project Doc Updates","OPA Updates"],tip:"Claims Administration resolves disputed changes when buyer and seller cannot agree. Negotiation is preferred."},
+      {name:"Monitor Stakeholder Engagement",tag:"Stakeholder",tagColor:"#0F6E56",tagBg:"#E1F5EE",summary:"Monitor stakeholder relationships; modify engagement strategies to increase efficiency and effectiveness.",inputs:["PM Plan","Project Docs","Work Performance Data","EEF","OPA"],tools:["Data Analysis","Decision Making","Data Representation","Comm Skills","Interpersonal Skills","Meetings"],outputs:["Work Performance Information","Change Requests","PM Plan Updates","Project Doc Updates"],tip:"Uses Stakeholder Engagement Assessment Matrix to compare current vs desired engagement levels."}
+    ]
+  },
+  close: {
+    label:"Closing",emoji:"✓",color:"#3C3489",desc:"Finalize all activities, obtain formal acceptance, archive information, release team",bg:"#090098",
+    processes:[
+      {name:"Close Project or Phase",tag:"Integration",tagColor:"#185FA5",tagBg:"#E6F1FB",summary:"Finalize all activities. Confirm delivery and acceptance, close accounts, reassign personnel, archive information, and transfer deliverables.",inputs:["Project Charter","PM Plan","Project Docs","Accepted Deliverables","Business Docs","Agreements","Procurement Docs","OPA"],tools:["Expert Judgment","Data Analysis","Meetings"],outputs:["Project Doc Updates","Final Product/Service/Result Transition","Final Report","OPA Updates"],tip:"If a project is terminated early, document reasons. Key activities: audit success/failure, capture lessons learned, transition deliverables to operations."}
+    ]
+  }
+};
+
+const contracts = [
+  {type:"Fixed-Price (Lump Sum)",sub:"3 types",risk:"Seller bears all risk",use:"Well-defined scope",variants:["FFP – Fixed price, cannot change","FPIF – Fixed price + incentive fee for hitting targets","FP-EPA – Adjusts for economic conditions over time"]},
+  {type:"Cost-Reimbursable",sub:"3 types",risk:"Buyer bears risk",use:"Unclear scope",variants:["CPFF – Work expense + fixed seller fee","CPIF – Work expense + incentive fee for targets","CPAF – Work expense + award fee based on satisfaction"]},
+  {type:"Time & Material",sub:"Hybrid",risk:"Buyer bears all risk",use:"High-level scope only",variants:["Pays for labor hours + materials used","No ceiling unless contract specifies","Use only when scope is high-level"]}
+];
+
+let activePhase = 'init', activeTab = 'processes';
+let openCards = new Set();
+
+function render() {
+  const app = document.getElementById('app');
+  app.innerHTML = '';
+
+  const tabBar = document.createElement('div');
+  tabBar.className = 'tab-bar';
+  [['processes','By Process Group'],['overview','Full Overview'],['contracts','Contract Types']].forEach(([id,label]) => {
+    const t = document.createElement('button');
+    t.className = 'tab' + (activeTab===id?' active':'');
+    t.textContent = label;
+    t.onclick = () => { activeTab=id; render(); };
+    tabBar.appendChild(t);
+  });
+  app.appendChild(tabBar);
+
+  if (activeTab==='overview') { renderOverview(app); return; }
+  if (activeTab==='contracts') { renderContracts(app); return; }
+
+  const nav = document.createElement('div');
+  nav.className = 'nav';
+  Object.entries(phases).forEach(([key,p]) => {
+    const btn = document.createElement('button');
+    btn.className = 'nav-btn'+(activePhase===key?' active':'');
+    btn.setAttribute('data-phase',key);
+    btn.textContent = p.emoji+' '+p.label;
+    btn.onclick = () => { activePhase=key; openCards.clear(); render(); };
+    nav.appendChild(btn);
+  });
+  app.appendChild(nav);
+
+  const phase = phases[activePhase];
+  const hdr = document.createElement('div');
+  hdr.className = 'phase-header';
+  hdr.style.background = phase.bg;
+  hdr.innerHTML = `<div class="phase-emoji">${phase.emoji}</div><div><div class="phase-title">${phase.label}</div><div class="phase-desc">${phase.desc}</div></div>`;
+  app.appendChild(hdr);
+
+  const grid = document.createElement('div');
+  grid.className = 'process-grid';
+  phase.processes.forEach((proc,idx) => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    const isOpen = openCards.has(idx);
+    card.innerHTML = `
+      <span class="card-tag" style="background:${proc.tagBg};color:${proc.tagColor}">${proc.tag}</span>
+      <span class="card-chevron ${isOpen?'open':''}">▼</span>
+      <div class="card-title">${proc.name}</div>
+      <div class="card-summary">${proc.summary}</div>
+      <div class="card-expand ${isOpen?'open':''}">
+        <div class="itto-label">INPUTS</div>
+        <div class="itto-row">${proc.inputs.map(i=>`<span class="pill in">${i}</span>`).join('')}</div>
+        <div class="itto-label">TOOLS & TECHNIQUES</div>
+        <div class="itto-row">${proc.tools.map(t=>`<span class="pill tool">${t}</span>`).join('')}</div>
+        <div class="itto-label">OUTPUTS</div>
+        <div class="itto-row">${proc.outputs.map(o=>`<span class="pill out">${o}</span>`).join('')}</div>
+        <div class="tip-box">💡 ${proc.tip}</div>
+      </div>`;
+    card.onclick = () => { if(openCards.has(idx)) openCards.delete(idx); else openCards.add(idx); render(); };
+    grid.appendChild(card);
+  });
+  app.appendChild(grid);
+
+  const note = document.createElement('div');
+  note.className = 'note';
+  note.style.marginTop = '14px';
+  note.textContent = `${phase.processes.length} processes — click any card to expand inputs, tools, and outputs`;
+  app.appendChild(note);
+}
+
+function renderOverview(app) {
+  const grid = document.createElement('div');
+  grid.className = 'overview-grid';
+  Object.entries(phases).forEach(([key,p]) => {
+    const col = document.createElement('div');
+    col.className = 'ov-col';
+    col.style.background = p.bg;
+    col.innerHTML = `<div class="ov-col-title" style="color:${p.color}">${p.emoji} ${p.label}</div>`;
+    p.processes.forEach(proc => {
+      const item = document.createElement('div');
+      item.className = 'ov-item';
+      item.textContent = proc.name;
+      item.onclick = () => { activePhase=key; activeTab='processes'; openCards.clear(); render(); };
+      col.appendChild(item);
+    });
+    grid.appendChild(col);
+  });
+  app.appendChild(grid);
+  const note = document.createElement('div');
+  note.className = 'note';
+  note.textContent = 'Total: 49 processes across 5 process groups. Click any process to jump to its detail.';
+  app.appendChild(note);
+}
+
+function renderContracts(app) {
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'display:flex;flex-direction:column;gap:12px;';
+  contracts.forEach(c => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.style.cursor = 'default';
+    card.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+        <div><div class="card-title">${c.type}</div><div class="card-summary">${c.sub}</div></div>
+        <span class="card-tag" style="background:${c.risk.includes('Seller')?'#E6F1FB':'#FCEBEB'};color:${c.risk.includes('Seller')?'#0C447C':'#A32D2D'};flex-shrink:0;margin-left:8px;">${c.risk}</span>
+      </div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:8px;"><strong style="font-weight:500">Use when:</strong> ${c.use}</div>
+      ${c.variants.map(v=>`<div style="font-size:12px;color:var(--text2);padding:5px 0 5px 12px;border-left:2px solid var(--border2);margin-bottom:4px;">${v}</div>`).join('')}`;
+    wrap.appendChild(card);
+  });
+  app.appendChild(wrap);
+  const note = document.createElement('div');
+  note.className = 'note';
+  note.style.marginTop = '8px';
+  note.textContent = 'Fixed-Price = predictable cost, use when scope is clear. Cost-Reimbursable = flexible, for R&D or unclear scope. T&M = hybrid.';
+  app.appendChild(note);
+}
+
+render();
+</script>
+</body>
+</html>
