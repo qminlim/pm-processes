@@ -1,0 +1,2261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMP Process Study Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f4f0;
+    --surface: #ffffff;
+    --surface2: #f0efe9;
+    --border: #e2e0d8;
+    --text: #1a1916;
+    --text2: #5a5750;
+    --text3: #8a8780;
+
+    --init: #2563eb;
+    --init-bg: #eff6ff;
+    --init-border: #bfdbfe;
+
+    --plan: #7c3aed;
+    --plan-bg: #f5f3ff;
+    --plan-border: #ddd6fe;
+
+    --exec: #059669;
+    --exec-bg: #ecfdf5;
+    --exec-border: #a7f3d0;
+
+    --mc: #d97706;
+    --mc-bg: #fffbeb;
+    --mc-border: #fde68a;
+
+    --close: #dc2626;
+    --close-bg: #fef2f2;
+    --close-border: #fecaca;
+
+    --tip: #16a34a;
+    --tip-bg: #f0fdf4;
+
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.04);
+    --shadow-hover: 0 4px 12px rgba(0,0,0,0.12), 0 8px 32px rgba(0,0,0,0.06);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111110;
+      --surface: #1c1c1a;
+      --surface2: #252523;
+      --border: #2e2e2b;
+      --text: #f0ede6;
+      --text2: #a09d96;
+      --text3: #6a6760;
+
+      --init: #60a5fa;
+      --init-bg: #1e2a3a;
+      --init-border: #1e40af;
+
+      --plan: #a78bfa;
+      --plan-bg: #231d3a;
+      --plan-border: #4c1d95;
+
+      --exec: #34d399;
+      --exec-bg: #0d2a1e;
+      --exec-border: #065f46;
+
+      --mc: #fbbf24;
+      --mc-bg: #2a1d06;
+      --mc-border: #92400e;
+
+      --close: #f87171;
+      --close-bg: #2a0d0d;
+      --close-border: #7f1d1d;
+
+      --tip: #4ade80;
+      --tip-bg: #0a1f0f;
+      --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.2);
+      --shadow-hover: 0 4px 12px rgba(0,0,0,0.4), 0 8px 32px rgba(0,0,0,0.25);
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .header-title {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    flex: 1;
+  }
+  .header-title span { color: var(--plan); }
+  .header-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    background: var(--plan-bg);
+    color: var(--plan);
+    border: 1px solid var(--plan-border);
+    padding: 3px 10px;
+    border-radius: 99px;
+    font-weight: 500;
+  }
+
+  /* TABS */
+  .tabs-wrapper {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .tabs-wrapper::-webkit-scrollbar { display: none; }
+  .tabs {
+    display: flex;
+    padding: 0 16px;
+    gap: 2px;
+    min-width: max-content;
+  }
+  .tab {
+    padding: 12px 18px;
+    font-size: 13px;
+    font-weight: 500;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--text2);
+    border-bottom: 2px solid transparent;
+    transition: all 0.15s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .tab:hover { color: var(--text); }
+  .tab.active { color: var(--text); border-bottom-color: var(--plan); }
+  .tab-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* CONTENT */
+  .content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 28px 20px;
+  }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* SECTION HEADERS */
+  .section-header {
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    margin-bottom: 6px;
+  }
+  .section-desc {
+    color: var(--text2);
+    font-size: 14px;
+  }
+
+  /* GRID */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fill, minmax(500px, 1fr)); gap: 14px; }
+
+  /* CARDS */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s;
+  }
+  .card:hover { box-shadow: var(--shadow-hover); }
+
+  .card-header {
+    padding: 16px 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    user-select: none;
+  }
+  .card-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .card-meta { flex: 1; min-width: 0; }
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+  .card-subtitle {
+    font-size: 12px;
+    color: var(--text2);
+  }
+  .card-chevron {
+    flex-shrink: 0;
+    color: var(--text3);
+    font-size: 16px;
+    transition: transform 0.2s;
+    margin-top: 2px;
+  }
+  .card.open .card-chevron { transform: rotate(180deg); }
+
+  .card-body {
+    display: none;
+    padding: 0 18px 18px;
+    border-top: 1px solid var(--border);
+  }
+  .card.open .card-body { display: block; }
+
+  /* PILL LABELS */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 99px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .pill-init { background: var(--init-bg); color: var(--init); border: 1px solid var(--init-border); }
+  .pill-plan { background: var(--plan-bg); color: var(--plan); border: 1px solid var(--plan-border); }
+  .pill-exec { background: var(--exec-bg); color: var(--exec); border: 1px solid var(--exec-border); }
+  .pill-mc { background: var(--mc-bg); color: var(--mc); border: 1px solid var(--mc-border); }
+  .pill-close { background: var(--close-bg); color: var(--close); border: 1px solid var(--close-border); }
+
+  /* TIP BOXES */
+  .tip {
+    border-left: 3px solid var(--tip);
+    background: var(--tip-bg);
+    padding: 10px 14px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin-top: 12px;
+    font-size: 13px;
+  }
+  .tip-label {
+    font-weight: 700;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--tip);
+    margin-bottom: 4px;
+  }
+
+  /* ITTO SECTIONS */
+  .itto-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 14px;
+  }
+  @media (max-width: 600px) { .itto-grid { grid-template-columns: 1fr; } }
+
+  .itto-box {
+    border-radius: var(--radius-sm);
+    padding: 12px;
+  }
+  .itto-box-i { background: var(--init-bg); border: 1px solid var(--init-border); }
+  .itto-box-t { background: var(--plan-bg); border: 1px solid var(--plan-border); }
+  .itto-box-o { background: var(--exec-bg); border: 1px solid var(--exec-border); }
+
+  .itto-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  .itto-box-i .itto-label { color: var(--init); }
+  .itto-box-t .itto-label { color: var(--plan); }
+  .itto-box-o .itto-label { color: var(--exec); }
+
+  .itto-list {
+    list-style: none;
+    font-size: 12px;
+    color: var(--text2);
+  }
+  .itto-list li { padding: 2px 0; }
+  .itto-list li::before { content: "·  "; color: var(--text3); }
+
+  /* FORMULA BOX */
+  .formula {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px 16px;
+    margin-top: 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+  }
+  .formula-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text2);
+    margin-bottom: 6px;
+  }
+
+  /* OVERVIEW TABLE */
+  .overview-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    background: var(--surface);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+  }
+  .overview-table th {
+    padding: 10px 14px;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    text-align: left;
+    border-bottom: 2px solid var(--border);
+  }
+  .overview-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    color: var(--text2);
+    font-size: 12px;
+  }
+  .overview-table tr:last-child td { border-bottom: none; }
+  .overview-table tr:hover td { background: var(--surface2); }
+  .th-init { color: var(--init); background: var(--init-bg); }
+  .th-plan { color: var(--plan); background: var(--plan-bg); }
+  .th-exec { color: var(--exec); background: var(--exec-bg); }
+  .th-mc { color: var(--mc); background: var(--mc-bg); }
+  .th-close { color: var(--close); background: var(--close-bg); }
+
+  /* PROCESS COUNT BADGE */
+  .count-badge {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 99px;
+    margin-left: 6px;
+  }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* DETAIL LIST */
+  .detail-list {
+    list-style: none;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--text2);
+  }
+  .detail-list li {
+    padding: 4px 0;
+    padding-left: 14px;
+    position: relative;
+  }
+  .detail-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--text3);
+    font-size: 10px;
+    top: 6px;
+  }
+  .detail-list li strong { color: var(--text); font-weight: 600; }
+
+  /* SUBLIST */
+  .sub-list {
+    list-style: none;
+    margin-top: 4px;
+    margin-left: 12px;
+    font-size: 12px;
+    color: var(--text3);
+  }
+  .sub-list li::before { content: "·  "; }
+
+  /* CONFLICT TABLE */
+  .conflict-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 10px; }
+  .conflict-table th { background: var(--surface2); padding: 8px; text-align: left; font-weight: 600; border: 1px solid var(--border); }
+  .conflict-table td { padding: 7px 8px; border: 1px solid var(--border); color: var(--text2); }
+
+  /* KANBAN / OVERVIEW STRIPS */
+  .pg-strip {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .pg-chip {
+    flex: 1;
+    min-width: 140px;
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    text-align: center;
+  }
+  .pg-chip-count { font-size: 28px; font-weight: 700; font-family: 'DM Mono', monospace; line-height: 1; }
+  .pg-chip-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 6px; }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 9px 14px;
+    margin-bottom: 20px;
+  }
+  .search-box input {
+    flex: 1;
+    border: none;
+    background: none;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--text);
+    outline: none;
+  }
+  .search-box input::placeholder { color: var(--text3); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .grid { grid-template-columns: 1fr; }
+    .grid-2 { grid-template-columns: 1fr; }
+    .itto-grid { grid-template-columns: 1fr; }
+    .content { padding: 16px 14px; }
+  }
+
+  /* ANIMATE */
+  .tab-panel.active { animation: fadeUp 0.2s ease; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-title">PMP <span>Process</span> Study Guide</div>
+  <span class="header-badge">PMBOK 6th Ed · 49 Processes</span>
+</div>
+
+<div class="tabs-wrapper">
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('overview')">
+      <span class="tab-dot" style="background:#6366f1"></span>Overview
+    </button>
+    <button class="tab" onclick="showTab('initiating')">
+      <span class="tab-dot" style="background:var(--init)"></span>Initiating
+    </button>
+    <button class="tab" onclick="showTab('planning')">
+      <span class="tab-dot" style="background:var(--plan)"></span>Planning
+    </button>
+    <button class="tab" onclick="showTab('executing')">
+      <span class="tab-dot" style="background:var(--exec)"></span>Executing
+    </button>
+    <button class="tab" onclick="showTab('monitoring')">
+      <span class="tab-dot" style="background:var(--mc)"></span>Monitoring &amp; Controlling
+    </button>
+    <button class="tab" onclick="showTab('closing')">
+      <span class="tab-dot" style="background:var(--close)"></span>Closing
+    </button>
+    <button class="tab" onclick="showTab('formulas')">
+      <span class="tab-dot" style="background:#ec4899"></span>Formulas &amp; Tips
+    </button>
+  </div>
+</div>
+
+<div class="content">
+
+<!-- ══════════════ OVERVIEW ══════════════ -->
+<div id="tab-overview" class="tab-panel active">
+  <div class="section-header">
+    <div class="section-title">Process Groups &amp; Knowledge Areas at a Glance</div>
+    <div class="section-desc">All 49 PM processes organized across 5 process groups. Click any tab above to dive deeper.</div>
+  </div>
+
+  <div class="pg-strip">
+    <div class="pg-chip" style="background:var(--init-bg); border:1px solid var(--init-border)">
+      <div class="pg-chip-count" style="color:var(--init)">2</div>
+      <div class="pg-chip-label" style="color:var(--init)">Initiating</div>
+    </div>
+    <div class="pg-chip" style="background:var(--plan-bg); border:1px solid var(--plan-border)">
+      <div class="pg-chip-count" style="color:var(--plan)">24</div>
+      <div class="pg-chip-label" style="color:var(--plan)">Planning</div>
+    </div>
+    <div class="pg-chip" style="background:var(--exec-bg); border:1px solid var(--exec-border)">
+      <div class="pg-chip-count" style="color:var(--exec)">10</div>
+      <div class="pg-chip-label" style="color:var(--exec)">Executing</div>
+    </div>
+    <div class="pg-chip" style="background:var(--mc-bg); border:1px solid var(--mc-border)">
+      <div class="pg-chip-count" style="color:var(--mc)">12</div>
+      <div class="pg-chip-label" style="color:var(--mc)">Monitoring &amp; Controlling</div>
+    </div>
+    <div class="pg-chip" style="background:var(--close-bg); border:1px solid var(--close-border)">
+      <div class="pg-chip-count" style="color:var(--close)">1</div>
+      <div class="pg-chip-label" style="color:var(--close)">Closing</div>
+    </div>
+  </div>
+
+  <table class="overview-table">
+    <thead>
+      <tr>
+        <th style="background:var(--surface2);color:var(--text2)">Knowledge Area</th>
+        <th class="th-init">Initiating</th>
+        <th class="th-plan">Planning</th>
+        <th class="th-exec">Executing</th>
+        <th class="th-mc">M&amp;C</th>
+        <th class="th-close">Closing</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Integration</strong></td><td><span class="pill pill-init">Develop Charter</span><br><span class="pill pill-init" style="margin-top:4px">ID Stakeholders</span></td><td><span class="pill pill-plan">Dev PM Plan</span></td><td><span class="pill pill-exec">Direct &amp; Manage</span><br><span class="pill pill-exec" style="margin-top:4px">Manage Knowledge</span></td><td><span class="pill pill-mc">Monitor &amp; Control</span><br><span class="pill pill-mc" style="margin-top:4px">Integrated Change Control</span></td><td><span class="pill pill-close">Close Project</span></td></tr>
+      <tr><td><strong>Scope</strong></td><td></td><td>Plan Scope · Collect Req · Define Scope · Create WBS</td><td></td><td>Validate Scope · Control Scope</td><td></td></tr>
+      <tr><td><strong>Schedule</strong></td><td></td><td>Plan Schedule · Define Activities · Sequence · Estimate Durations · Develop Schedule</td><td></td><td>Control Schedule</td><td></td></tr>
+      <tr><td><strong>Cost</strong></td><td></td><td>Plan Cost · Estimate Costs · Determine Budget</td><td></td><td>Control Costs</td><td></td></tr>
+      <tr><td><strong>Quality</strong></td><td></td><td>Plan Quality</td><td>Manage Quality</td><td>Control Quality</td><td></td></tr>
+      <tr><td><strong>Resource</strong></td><td></td><td>Plan Resource · Estimate Activity Resources</td><td>Acquire Resources · Develop Team · Manage Team</td><td>Control Resources</td><td></td></tr>
+      <tr><td><strong>Communications</strong></td><td></td><td>Plan Communications</td><td>Manage Communications</td><td>Monitor Communications</td><td></td></tr>
+      <tr><td><strong>Risk</strong></td><td></td><td>Plan Risk · Identify Risks · Qualitative · Quantitative · Plan Responses</td><td>Implement Risk Responses</td><td>Monitor Risks</td><td></td></tr>
+      <tr><td><strong>Procurement</strong></td><td></td><td>Plan Procurement</td><td>Conduct Procurements</td><td>Control Procurements</td><td></td></tr>
+      <tr><td><strong>Stakeholder</strong></td><td>Identify Stakeholders</td><td>Plan Stakeholder Engagement</td><td>Manage Stakeholder Engagement</td><td>Monitor Stakeholder Engagement</td><td></td></tr>
+    </tbody>
+  </table>
+
+  <div class="tip">
+    <div class="tip-label">📌 Exam Tip — Key Rule</div>
+    Planning is the LARGEST process group with 24 processes. If an exam question asks "what should the PM do first?", the answer is almost always related to planning before acting. Only exceptions: if there's an approved change request (execute it) or a crisis (monitor/control).
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-title" style="font-size:18px;margin-bottom:14px">Quick Mnemonics</div>
+  <div class="grid">
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🧠</div>
+        <div class="card-meta">
+          <div class="card-title">Process Groups Order</div>
+          <div class="card-subtitle">Remember the sequence</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="formula">
+          <div class="formula-label">Mnemonic</div>
+          <strong>I P E M C</strong> → "I Plan Every Monday Carefully"<br><br>
+          <strong>I</strong>nitiating → <strong>P</strong>lanning → <strong>E</strong>xecuting → <strong>M</strong>onitoring &amp; Controlling → <strong>C</strong>losing
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          M&amp;C overlaps with ALL other groups — it runs simultaneously throughout the project, not just at the end.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">📋</div>
+        <div class="card-meta">
+          <div class="card-title">Risk Response Strategies</div>
+          <div class="card-subtitle">Threats vs. Opportunities</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="formula">
+          <div class="formula-label">Threats — "EEATMA"</div>
+          <strong>E</strong>scalate · <strong>E</strong>liminate (Avoid) · <strong>A</strong>ccept · <strong>T</strong>ransfer · <strong>M</strong>itigate · <strong>A</strong>ccept
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Opportunities — "EESHA"</div>
+          <strong>E</strong>scalate · <strong>E</strong>xploit · <strong>S</strong>hare · <strong>E</strong>nhance · <strong>A</strong>ccept
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Escalate is the same for both threats &amp; opportunities — it means the risk is outside the PM's authority level.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">📐</div>
+        <div class="card-meta">
+          <div class="card-title">4 Baselines &amp; 14 Subsidiary Plans</div>
+          <div class="card-subtitle">Inside the Project Management Plan</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="formula">
+          <div class="formula-label">4 Baselines (SSCP)</div>
+          <strong>S</strong>cope · <strong>S</strong>chedule · <strong>C</strong>ost · <strong>P</strong>erformance Measurement
+        </div>
+        <div class="detail-list" style="margin-top:10px;font-size:12px;color:var(--text2)">
+          <li>Scope Baseline = Scope Statement + WBS + WBS Dictionary</li>
+          <li>Schedule Baseline = approved project schedule</li>
+          <li>Cost Baseline = S-curve (cost + contingency reserves)</li>
+          <li>Project Budget = Cost Baseline + Management Reserves</li>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Baselines can ONLY be changed through an approved Change Request via the Change Control Board (CCB).
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🔄</div>
+        <div class="card-meta">
+          <div class="card-title">Change Request Process</div>
+          <div class="card-subtitle">Integrated Change Control flow</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Stakeholder identifies need for change</li>
+          <li>Written change request submitted to PM</li>
+          <li>PM assesses impact on all constraints</li>
+          <li>Submitted to Change Control Board (CCB)</li>
+          <li>CCB approves or rejects</li>
+          <li>If approved → update PM Plan and manage to new plan</li>
+          <li>If rejected → develop new change request (repeat)</li>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          ANY stakeholder can submit a change request. All requests should be in written form. The PM never approves changes unilaterally — that's the CCB's role.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ INITIATING ══════════════ -->
+<div id="tab-initiating" class="tab-panel">
+  <div class="section-header">
+    <div class="section-title">Initiating Process Group <span class="count-badge" style="background:var(--init-bg);color:var(--init)">2 processes</span></div>
+    <div class="section-desc">Formally authorizes the project and identifies stakeholders. Smallest process group.</div>
+  </div>
+  <div class="grid">
+
+    <!-- Develop Project Charter -->
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">📄</div>
+        <div class="card-meta">
+          <div class="card-title">Develop Project Charter</div>
+          <div class="card-subtitle"><span class="pill pill-init">Initiating</span> · Integration</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Formally authorizes the project or phase</li>
+          <li>Outlines project objectives and defines PM's authority</li>
+          <li>Provides PM authority to acquire and use resources</li>
+          <li>Signed by senior management</li>
+        </div>
+        <div class="itto-grid">
+          <div class="itto-box itto-box-i">
+            <div class="itto-label">Inputs</div>
+            <ul class="itto-list">
+              <li>Business Documents</li>
+              <li>Agreements</li>
+              <li>EEF</li>
+              <li>OPA</li>
+            </ul>
+          </div>
+          <div class="itto-box itto-box-t">
+            <div class="itto-label">Tools &amp; Techniques</div>
+            <ul class="itto-list">
+              <li>Expert Judgment</li>
+              <li>Data Gathering</li>
+              <li>Interpersonal Skills</li>
+              <li>Meetings</li>
+            </ul>
+          </div>
+          <div class="itto-box itto-box-o">
+            <div class="itto-label">Outputs</div>
+            <ul class="itto-list">
+              <li>Project Charter</li>
+              <li>Assumption Log</li>
+            </ul>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:8px">Key Output Details</div>
+        <div class="detail-list">
+          <li><strong>Business Case</strong> — Justifies why the project is worth the investment (Market Demand, Customer Request, Org Need, Legal)</li>
+          <li><strong>Benefits Management Plan</strong> — Describes benefits the project will produce and how to measure them</li>
+          <li><strong>Project Charter</strong> — High-level requirements, risks, preliminary budget &amp; schedule, project purpose, PM authority level</li>
+          <li><strong>Assumption Log</strong> — Things perceived to be true (assumptions) + things that might constrain the project</li>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          The Project Charter is signed by senior management, NOT the PM. The approved charter formally initiates the project. Without a charter, the PM has no authority.
+        </div>
+      </div>
+    </div>
+
+    <!-- Identify Stakeholders -->
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">👥</div>
+        <div class="card-meta">
+          <div class="card-title">Identify Stakeholders</div>
+          <div class="card-subtitle"><span class="pill pill-init">Initiating</span> · Stakeholder</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Identifying stakeholders regularly throughout the project</li>
+          <li>Analyzing and recording relevant information about interests &amp; involvement</li>
+          <li>Enables appropriate focus for engagement of each stakeholder</li>
+        </div>
+        <div class="itto-grid">
+          <div class="itto-box itto-box-i">
+            <div class="itto-label">Inputs</div>
+            <ul class="itto-list">
+              <li>Project Charter</li>
+              <li>Business Documents</li>
+              <li>PM Plan</li>
+              <li>Project Documents</li>
+              <li>Agreements · EEF · OPA</li>
+            </ul>
+          </div>
+          <div class="itto-box itto-box-t">
+            <div class="itto-label">Tools &amp; Techniques</div>
+            <ul class="itto-list">
+              <li>Expert Judgment</li>
+              <li>Data Gathering</li>
+              <li>Data Analysis (Stakeholder Analysis)</li>
+              <li>Data Representation</li>
+              <li>Meetings</li>
+            </ul>
+          </div>
+          <div class="itto-box itto-box-o">
+            <div class="itto-label">Outputs</div>
+            <ul class="itto-list">
+              <li>Stakeholder Register</li>
+              <li>Change Requests</li>
+              <li>PM Plan Updates</li>
+              <li>Project Doc Updates</li>
+            </ul>
+          </div>
+        </div>
+        <div class="divider"></div>
+        <div style="font-size:13px;font-weight:600;margin-bottom:8px">Data Representation Tools</div>
+        <div class="detail-list">
+          <li><strong>Power/Interest Grid</strong> — Categorizes by authority and interest level</li>
+          <li><strong>Salience Model</strong> — Power (authority), Urgency (immediate attention), Legitimacy (appropriateness of involvement)</li>
+          <li><strong>Stakeholder Cube</strong> — 3D: interest + power + influence</li>
+          <li><strong>Directions of Influence</strong> — Upward (senior mgmt), Downward (team), Outward (vendors/public), Sideward (peers)</li>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          The Stakeholder Register must include: contact info, role, communication requirements, expectations, how affected by project, and power/influence level. This process is performed REPEATEDLY throughout the project.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ PLANNING ══════════════ -->
+<div id="tab-planning" class="tab-panel">
+  <div class="section-header">
+    <div class="section-title">Planning Process Group <span class="count-badge" style="background:var(--plan-bg);color:var(--plan)">24 processes</span></div>
+    <div class="section-desc">The largest group. Establishes all baselines and subsidiary plans. Expands cards to review ITTOs and key details.</div>
+  </div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🗂️</div>
+        <div class="card-meta">
+          <div class="card-title">Develop Project Management Plan</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Integration</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Defines, prepares, and coordinates all plan components</li>
+          <li>Comprehensive document outlining basis of all project work</li>
+          <li>Contains 4 Baselines + 14 Subsidiary plans</li>
+          <li>Only changed via approved Change Request from CCB</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">14 Subsidiary Plans (in PM Plan)</div>
+          Scope · Requirements · Schedule · Cost · Quality · Resource · Communication · Risk · Procurement · Stakeholder · Change · Configuration · Project Life Cycle · Development Approach
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          The PM Plan is approved by: PM, Sponsor, Functional Manager, Program Manager, or (rarely) Senior Management. It may be summary-level OR detailed.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🎯</div>
+        <div class="card-meta">
+          <div class="card-title">Plan Scope Management</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Scope</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Creates scope management plan — how scope will be defined, validated, and controlled</li>
+          <li><strong>Product Scope</strong> — features/functions of a product, service, or result</li>
+          <li><strong>Project Scope</strong> — work needed to deliver the product</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Outputs</div>
+          <strong>Scope Management Plan</strong> — how scope will be defined, developed, monitored, controlled, verified<br><br>
+          <strong>Requirements Management Plan</strong> — how requirements will be analyzed, documented, and managed (+ traceability structure)
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          <strong>Gold Plating</strong> = doing extra work NOT in scope (avoid!). <strong>Scope Creep</strong> = unauthorized additions to scope (prevent!). Both are project risks.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">📝</div>
+        <div class="card-meta">
+          <div class="card-title">Collect Requirements</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Scope</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Determining, documenting, and managing stakeholder needs and requirements</li>
+          <li>Critical to project success — requirements drive schedule, budget, risk, quality, resources</li>
+        </div>
+        <div class="detail-list" style="margin-top:10px">
+          <li><strong>Data Gathering</strong> — Benchmarking, document analysis</li>
+          <li><strong>Data Representation</strong> — Mind Mapping (brainstorm ideas), Affinity Diagrams (group large ideas)</li>
+          <li><strong>Context Diagrams</strong> — Shows how systems and people interact</li>
+          <li><strong>Prototypes</strong> — Working model for stakeholder feedback</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Outputs</div>
+          <strong>Requirements Documentation</strong> — how each req is performed and why important<br><br>
+          <strong>Requirements Traceability Matrix (RTM)</strong> — links requirements back to source; tracks who, why, description, status
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          The RTM is used to manage scope changes. It tracks the original stakeholder, reason, description, and current status (completed, in-progress, delayed, cancelled).
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">📌</div>
+        <div class="card-meta">
+          <div class="card-title">Define Scope</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Scope</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Developing a detailed description of the project and product</li>
+          <li>Key tool: <strong>Product Analysis</strong> — product breakdown, system analysis, system requirements</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Project Scope Statement Includes</div>
+          Product description · Project goals · Identified risks · Acceptance criteria · Constraints/exclusions
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          More detail in the scope statement = less project risk and less scope creep. Less detail = more risk. Always push for detailed scope statements on the exam.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🌳</div>
+        <div class="card-meta">
+          <div class="card-title">Create WBS (Work Breakdown Structure)</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Scope</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Subdividing project deliverables into smaller, manageable components</li>
+          <li>If it's NOT in the WBS, it's NOT part of the project</li>
+          <li>Created by PM, SMEs, and Project Team (great team-building tool)</li>
+          <li>Each node must have a unique identifying number — no gaps, no overlaps</li>
+          <li>A deliverable-oriented hierarchical decomposition</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Scope Baseline (3 Components)</div>
+          1. Project Scope Statement<br>2. WBS<br>3. WBS Dictionary
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">WBS Dictionary Contains</div>
+          Team member assigned · Time estimate · Cost estimate · Account info · Work Package ID · Quality requirements · Contract info · Scheduled Milestones
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          <strong>Work Package</strong> = lowest level of WBS (deliverable-based). <strong>Activity</strong> = work done to complete a work package (schedule-focused). One work package can have many activities.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">📅</div>
+        <div class="card-meta">
+          <div class="card-title">Plan Schedule Management</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Schedule</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Establishes policies, procedures, documentation for schedule</li>
+          <li>Output: <strong>Schedule Management Plan</strong> — levels of accuracy, rules of performance measurement, reporting formats, release/iteration length, project schedule model development</li>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🔢</div>
+        <div class="card-meta">
+          <div class="card-title">Define Activities</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Schedule</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Identifying and documenting specific actions to produce deliverables</li>
+          <li>Decomposes work packages into schedule activities</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Key Tool — Rolling Wave Planning</div>
+          Progressive elaboration technique. Near-term work packages defined in detail; long-term work packages get placeholders updated as more info becomes available.
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Outputs</div>
+          Activity List · Activity Attributes · Milestone List · Change Requests
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🔗</div>
+        <div class="card-meta">
+          <div class="card-title">Sequence Activities</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Schedule</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Identifying relationships among project activities</li>
+          <li>Key tool: <strong>PDM (Precedence Diagramming Method)</strong> — graphical representation of project flow</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">4 Dependency Relationships (PDM)</div>
+          <strong>FS</strong> (most common) — Finish-to-Start<br>
+          <strong>FF</strong> — Finish-to-Finish<br>
+          <strong>SS</strong> — Start-to-Start<br>
+          <strong>SF</strong> — Start-to-Finish (rarest)
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Dependency Types</div>
+          <strong>Mandatory (Hard Logic)</strong> — must be done in order (physical limitation)<br>
+          <strong>Discretionary (Soft Logic)</strong> — can work in parallel<br>
+          <strong>External</strong> — outside team control<br>
+          <strong>Internal</strong> — within team control
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Leads &amp; Lags</div>
+          <strong>Lead</strong> — Advance a successor (start earlier than predecessor finishes)<br>
+          <strong>Lag</strong> — Delay a successor (wait before starting)
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Finish-to-Start (FS) is the MOST commonly used dependency. On the exam, if no relationship type is specified, assume FS.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">⏱️</div>
+        <div class="card-meta">
+          <div class="card-title">Estimate Activity Durations</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Schedule</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Estimating work periods needed to complete individual activities</li>
+          <li>Should be calculated by the person most familiar with the work</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Estimating Techniques</div>
+          <strong>Analogous</strong> (Top-Down) — historical data; least accurate, least expensive<br>
+          <strong>Parametric</strong> — statistical relationship (e.g., sqft, lines of code)<br>
+          <strong>Three-Point (PERT)</strong> — (O + 4M + P) / 6<br>
+          <strong>Bottom-Up</strong> — highest accuracy, most time-consuming<br>
+          <strong>Reserve Analysis</strong> — contingency/buffer for risk
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">PERT Beta Distribution Formula</div>
+          (Optimistic + 4×Most Likely + Pessimistic) ÷ 6<br><br>
+          <strong>Example:</strong> O=8, P=14, M=10 → (8 + 40 + 14) / 6 = <strong>10.33 days</strong><br><br>
+          <strong>Triangle Distribution:</strong> (O + M + P) ÷ 3<br>
+          <strong>Standard Deviation:</strong> (P − O) ÷ 6
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          PERT uses weighted average — Most Likely gets 4× weight. Bottom-Up is the most accurate but labor-intensive. Analogous is quickest but least accurate. Match technique to information available.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">📊</div>
+        <div class="card-meta">
+          <div class="card-title">Develop Schedule</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Schedule</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Analyzing sequences, durations, resources, constraints to create schedule model</li>
+          <li>Generates planned dates for completing activities</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Key Schedule Tools</div>
+          <strong>Critical Path Method (CPM)</strong> — calculates ES, EF, LS, LF; determines float/slack<br>
+          <strong>Critical Chain Method</strong> — emphasizes resource constraints<br>
+          <strong>Resource Optimization</strong> — flattens schedule when over-allocated<br>
+          <strong>Schedule Compression:</strong><br>
+          · <strong>Crashing</strong> — add resources; ALWAYS adds cost, may add risk<br>
+          · <strong>Fast Tracking</strong> — parallel activities; may NOT add cost, INCREASES risk of rework
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          If asked how to shorten schedule WITHOUT adding cost → Fast Tracking. If budget is not a concern → Crashing. Critical Path = longest path through the network (activities with ZERO float).
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">💰</div>
+        <div class="card-meta">
+          <div class="card-title">Plan Cost Management + Estimate Costs</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Cost</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="formula">
+          <div class="formula-label">Cost Types</div>
+          <strong>Fixed</strong> — stays same (bulldozer rental) | <strong>Variable</strong> — changes (labor, fuel)<br>
+          <strong>Direct</strong> — billed directly to project | <strong>Indirect</strong> — shared across projects (manager salary)<br>
+          <strong>Sunk Costs</strong> — already spent; irrelevant to future decisions ("spilt milk")
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Estimate Types (Accuracy Ranges)</div>
+          <strong>Definitive:</strong> −5% to +10%<br>
+          <strong>Budget:</strong> −10% to +25%<br>
+          <strong>Rough Order of Magnitude (ROM):</strong> −25% to +75%
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Cost of Quality (COQ)</div>
+          <strong>Conformance:</strong> Prevention costs + Appraisal costs (doing it right)<br>
+          <strong>Non-Conformance:</strong> Internal failure (rework, scrap) + External failure (warranty, lost business)
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Value Engineering = finding a less costly way to achieve the same scope/goal. Always ignore sunk costs when making decisions — they cannot be recovered.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🏦</div>
+        <div class="card-meta">
+          <div class="card-title">Determine Budget</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Cost</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Aggregating estimated costs of activities to establish cost baseline</li>
+          <li>Cost Baseline is displayed as an <strong>S-Curve graph</strong></li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Reserve Hierarchy</div>
+          Activities → Work Packages → Control Accounts<br><br>
+          <strong>Contingency Reserve</strong> — PM controls; for known/unknown risks<br>
+          <strong>Management Reserve</strong> — Management controls; for unknown/unknown risks<br><br>
+          <strong>Cost Baseline</strong> = all activity costs + contingency reserves<br>
+          <strong>Project Budget</strong> = Cost Baseline + Management Reserves
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          The Cost Baseline is the S-curve. Project Budget is ABOVE the baseline. Contingency reserves are in the baseline; management reserves are above it.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">✅</div>
+        <div class="card-meta">
+          <div class="card-title">Plan Quality Management</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Quality</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Identifying quality requirements/standards and documenting compliance approach</li>
+          <li>Always cost more if customers find defects — prevent defects from reaching customers</li>
+          <li>Build quality into planning and design, not after</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Data Analysis Tools</div>
+          <strong>Cost-Benefit Analysis</strong> — benefits must outweigh costs<br>
+          <strong>Cost of Quality (COQ)</strong> — all costs ensuring quality over product life
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Data Representation Tools</div>
+          Logical Data Model · Matrix Diagram · Mind Mapping · Flowcharts
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Quality Metrics = specifications on HOW quality will be measured (e.g., "errors per line of code"). These are used during Control Quality.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">👤</div>
+        <div class="card-meta">
+          <div class="card-title">Plan Resource Management</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Resource</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Describing how to estimate, acquire, manage, and use team and physical resources</li>
+          <li><strong>Team resources</strong> — people building deliverables</li>
+          <li><strong>Physical resources</strong> — supplies, materials, services, facilities, equipment</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Org Chart Types (Data Representation)</div>
+          <strong>Hierarchical</strong> — graphic top-down format (like WBS)<br>
+          <strong>Matrix-Based (RACI)</strong> — Responsibility Assignment Matrix<br>
+          <strong>Text-Oriented</strong> — detailed role descriptions
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">RACI Chart</div>
+          <strong>R</strong>esponsible · <strong>A</strong>ccountable · <strong>C</strong>onsulted · <strong>I</strong>nformed
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          The Team Charter outlines acceptable behavior, rules of conduct for meetings, decision-making, and one-on-one conversations. Resource Management Plan guides all 6 resource management processes.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">📡</div>
+        <div class="card-meta">
+          <div class="card-title">Plan Communications Management</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Communications</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Developing appropriate approach based on stakeholder information needs</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Communications Channels Formula</div>
+          Channels = n(n−1) / 2<br><br>
+          <strong>Example:</strong> 10 stakeholders → 10(10−1)/2 = <strong>45 channels</strong><br>
+          4 people → 4(4−1)/2 = <strong>6 channels</strong>
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Communication Methods</div>
+          <strong>Push</strong> — email blast (one-way, sender initiates)<br>
+          <strong>Pull</strong> — download/portal (receiver retrieves)<br>
+          <strong>Interactive</strong> — joint discussions (two-way, real-time)<br><br>
+          Informal Written · Formal Written (contracts) · Informal Verbal · Formal Verbal (presentations)
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Communication Model Components</div>
+          Sender → Encoder → Medium → Decoder → Receiver<br>Noise · Paralingual (pitch/tone) · Nonverbal · Blockers
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Communications formula is a top exam topic. Adding one person to a 10-person team changes channels from 45 to 55 (10 new channels). Lack of communication is the #1 cause of project failure.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">⚠️</div>
+        <div class="card-meta">
+          <div class="card-title">Risk Management Planning &amp; Identification</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Risk</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li><strong>Individual Risk</strong> — uncertain event with positive/negative impact on parts of the project</li>
+          <li><strong>Overall Project Risk</strong> — sum of all individual risks + other sources of uncertainty</li>
+          <li>Negative risks = threats; Positive risks = opportunities</li>
+          <li>Risk Management = proactive approach, done early</li>
+          <li>All personnel should identify risks; risk changes daily</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Risk Management Plan (Roadmap to 6 Risk Processes)</div>
+          Covers: risk categorization, qualitative/quantitative analysis approach, response planning, implementation, monitoring, ongoing activities, roles/responsibilities, stakeholder risk appetite, RBS (Risk Breakdown Structure)
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Identify Risks — Key Tools</div>
+          SWOT Analysis · Root Cause Analysis · Assumption/Constraint Analysis · Document Analysis · Prompt Lists
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Risk Register Contains</div>
+          List of all risks · Potential responses · Root causes · Risk categories
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">📉</div>
+        <div class="card-meta">
+          <div class="card-title">Qualitative &amp; Quantitative Risk Analysis</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Risk</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li><strong>Qualitative</strong> — prioritizes risks by probability and impact; creates ranking; performed throughout project</li>
+          <li><strong>Quantitative</strong> — numerically analyzes effect of risks on objectives; assigns monetary/numeric value</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Qualitative Tools</div>
+          Probability &amp; Impact Matrix (P×I = Score) · Risk Data Quality Assessment · Risk Categorization · Bubble Charts
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Quantitative Tools</div>
+          Monte Carlo Simulation · Sensitivity Analysis · Tornado Chart · Decision Tree · EMV (Expected Monetary Value)
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">EMV Formula</div>
+          EMV = Probability × Risk Cost<br>Total = Initial Cost + EMV<br><br>
+          <strong>Example:</strong> New house: $1M initial, $400K risk @ 25% → EMV = $100K → Total = $1.1M
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Always do Qualitative BEFORE Quantitative. Qualitative filters which risks need deeper analysis. Quantitative requires specialized software and expertise.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🛡️</div>
+        <div class="card-meta">
+          <div class="card-title">Plan Risk Responses</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Risk</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="formula">
+          <div class="formula-label">Threat Strategies (EEAMT)</div>
+          <strong>Escalate</strong> — outside PM authority<br>
+          <strong>Avoid</strong> — eliminate the risk entirely<br>
+          <strong>Transfer</strong> — shift ownership to 3rd party (insurance, contracts)<br>
+          <strong>Mitigate</strong> — reduce probability/impact<br>
+          <strong>Accept</strong> — passive (do nothing) or active (contingency plan)
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Opportunity Strategies (EEESHA)</div>
+          <strong>Escalate</strong> · <strong>Exploit</strong> (remove all uncertainty) · <strong>Share</strong> (3rd party) · <strong>Enhance</strong> (increase probability) · <strong>Accept</strong>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Escalate (both threats &amp; opportunities) is used when risks are outside PM's authority. Transfer does NOT eliminate risk — it moves ownership. Mitigate reduces but doesn't eliminate.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🤝</div>
+        <div class="card-meta">
+          <div class="card-title">Plan Procurement Management</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Procurement</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Determines whether to obtain goods/services externally and how/when</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Contract Types</div>
+          <strong>Fixed Price (Lump Sum)</strong> — all risk with seller; well-defined scope<br>
+          · FFP (Firm Fixed Price) — price cannot change<br>
+          · FPIF (Fixed Price Incentive Fee) — fee for meeting target<br>
+          · FP-EPA — adjusted for economic conditions<br><br>
+          <strong>Cost-Reimbursable</strong> — all risk with buyer<br>
+          · CPFF — pay expenses + fixed fee<br>
+          · CPIF — expenses + fee if target met<br>
+          · CPAF — expenses + award based on satisfaction<br><br>
+          <strong>Time &amp; Material (T&amp;M)</strong> — buyer takes all risk; use only when scope is high-level
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Bid Documents</div>
+          <strong>RFI</strong> — Request for Information<br>
+          <strong>IFB</strong> — Invitation for Bid<br>
+          <strong>RFP</strong> — Request for Proposal<br>
+          <strong>RFQ</strong> — Request for Quote
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Fixed Price = seller at risk. Cost-Reimbursable = buyer at risk. T&amp;M = highest buyer risk. Use Fixed Price when scope is well-defined. Use T&amp;M when scope is unclear.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🧩</div>
+        <div class="card-meta">
+          <div class="card-title">Plan Stakeholder Engagement</div>
+          <div class="card-subtitle"><span class="pill pill-plan">Planning</span> · Stakeholder</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Developing methods to involve project stakeholders based on needs/expectations/interests</li>
+          <li>Creates an actionable plan for effective stakeholder interaction</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Stakeholder Engagement Assessment Matrix — 5 Levels</div>
+          <strong>Unaware</strong> → <strong>Resistant</strong> → <strong>Neutral</strong> → <strong>Supportive</strong> → <strong>Leading</strong><br><br>
+          Matrix shows "Current" vs "Desired" engagement level for each stakeholder
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Goal: move stakeholders toward "Supportive" or "Leading". The matrix identifies gaps between current and desired engagement for each person.
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end grid -->
+</div>
+
+<!-- ══════════════ EXECUTING ══════════════ -->
+<div id="tab-executing" class="tab-panel">
+  <div class="section-header">
+    <div class="section-title">Executing Process Group <span class="count-badge" style="background:var(--exec-bg);color:var(--exec)">10 processes</span></div>
+    <div class="section-desc">Performing the work. Building deliverables. Managing people, quality, and vendors.</div>
+  </div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🚀</div>
+        <div class="card-meta">
+          <div class="card-title">Direct and Manage Project Work</div>
+          <div class="card-subtitle"><span class="pill pill-exec">Executing</span> · Integration</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Performing the work defined in the PM Plan</li>
+          <li>Managing people, improving processes, requesting changes, implementing approved changes</li>
+          <li>Summary of all other executing processes</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Key Outputs</div>
+          <strong>Deliverables</strong> — any product, service, or result required<br>
+          <strong>Work Performance Data</strong> — raw status info (cost/duration tracking)<br>
+          <strong>Issue Log</strong> — all problems encountered; assigned, prioritized, addressed<br>
+          <strong>Change Requests:</strong><br>
+          · <strong>Corrective Action</strong> — fixing past errors (realign performance)<br>
+          · <strong>Preventive Action</strong> — fixing future errors (prevent misalignment)<br>
+          · <strong>Defect Repair</strong> — modify nonconforming product
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Work Performance Data (raw) → becomes Work Performance Information (analyzed) → becomes Work Performance Reports (distributed). Know this flow!
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">💡</div>
+        <div class="card-meta">
+          <div class="card-title">Manage Project Knowledge</div>
+          <div class="card-subtitle"><span class="pill pill-exec">Executing</span> · Integration</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Using existing knowledge and creating new knowledge for organizational learning</li>
+          <li><strong>Explicit Knowledge</strong> — formally documented (data, records, documents)</li>
+          <li><strong>Tacit Knowledge</strong> — in people's heads (experience, thinking, beliefs)</li>
+          <li>Output: <strong>Lessons Learned Register</strong> — gathered throughout the project, not just at end</li>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Lessons Learned are collected throughout the project lifecycle, not only at the end. Updated whenever new knowledge is discovered by any stakeholder.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🔬</div>
+        <div class="card-meta">
+          <div class="card-title">Manage Quality</div>
+          <div class="card-subtitle"><span class="pill pill-exec">Executing</span> · Quality</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Translating the Quality Management Plan into executable quality activities</li>
+          <li>Also called <strong>Quality Assurance</strong></li>
+          <li>Confirms quality processes are meeting quality objectives</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Quality Charts (Data Representation)</div>
+          <strong>Cause &amp; Effect (Fishbone/Ishikawa)</strong> — identifies root causes of defects<br>
+          <strong>Flowcharts</strong> — graphical process representation<br>
+          <strong>Histograms/Pareto Diagrams</strong> — 80/20 rule; bar charts of defect frequency<br>
+          <strong>Scatter Diagrams</strong> — trends between variables<br>
+          <strong>Control Charts</strong> — is process "in control"? Rule of 7
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          <strong>Pareto Principle (80/20)</strong> — 80% of problems come from 20% of causes. Focus on the vital few. Rule of Seven on control charts = 7 consecutive points on one side of mean = out of control.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🧑‍🤝‍🧑</div>
+        <div class="card-meta">
+          <div class="card-title">Acquire Resources</div>
+          <div class="card-subtitle"><span class="pill pill-exec">Executing</span> · Resource</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Getting staff and physical resources needed to build deliverables</li>
+          <li>Done continuously throughout the project</li>
+          <li>Both internal and external resources</li>
+          <li><strong>Pre-Assignment</strong> — team members selected in advance of the project</li>
+          <li><strong>Virtual Teams</strong> — geographically distributed, work from home, different shifts</li>
+          <li>Multi-Criteria Decision Analysis — availability, cost, experience, ability, skills, attitude</li>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🌱</div>
+        <div class="card-meta">
+          <div class="card-title">Develop Team</div>
+          <div class="card-subtitle"><span class="pill pill-exec">Executing</span> · Resource</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Improving abilities, communication, and overall team atmosphere</li>
+          <li><strong>Co-Location (Tight Matrix)</strong> — war room; entire team in one physical location</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Tuckman's Ladder (5 Stages)</div>
+          <strong>Forming</strong> → <strong>Storming</strong> → <strong>Norming</strong> → <strong>Performing</strong> → <strong>Adjourning</strong>
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Motivation Theories</div>
+          <strong>Maslow's Hierarchy:</strong> Physiological → Safety → Social → Esteem → Self-Actualization<br><br>
+          <strong>Herzberg's Theory:</strong> Hygiene factors (prevent dissatisfaction) vs. Motivators (drive satisfaction)<br><br>
+          <strong>McGregor's X/Y:</strong> X = distrusted/micromanaged; Y = self-motivated/proactive<br><br>
+          <strong>Theory Z:</strong> Loyalty through employee well-being<br><br>
+          <strong>McClelland's 3 Needs:</strong> Achievement · Power · Affiliation
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Forms of Power (PM)</div>
+          Reward · Expert · Legitimate (Formal) · Referent (respect/personality) · Punishment (least desirable)
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Best forms of power: Expert &amp; Reward. Worst: Punishment. Performing is the stage where teams actually DO the work. Adjourning = team release/disbanding.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">⚖️</div>
+        <div class="card-meta">
+          <div class="card-title">Manage Team</div>
+          <div class="card-subtitle"><span class="pill pill-exec">Executing</span> · Resource</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Tracking performance, providing feedback, resolving issues, managing team changes</li>
+          <li>Requires communication, conflict management, negotiation, and leadership</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Conflict Resolution Methods (Best to Worst)</div>
+          <strong>Problem Solving/Confronting</strong> — Win-Win (BEST)<br>
+          <strong>Collaborating</strong> — find common ground<br>
+          <strong>Compromising</strong> — Lose-Lose (neither fully satisfied)<br>
+          <strong>Forcing</strong> — Win-Lose (one side dominates)<br>
+          <strong>Smoothing/Accommodating</strong> — temporary, Lose-Lose<br>
+          <strong>Withdrawal/Avoidance</strong> — Yield-Lose, conflict NOT resolved (WORST)
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Emotional Intelligence (EQ)</div>
+          Managing personal emotions of oneself and others. Key PM soft skill.
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Greatest project conflict: between PM and Functional Manager (over schedules, priorities, resources). Problem Solving = BEST conflict resolution. Withdrawal = WORST.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">📢</div>
+        <div class="card-meta">
+          <div class="card-title">Manage Communications</div>
+          <div class="card-subtitle"><span class="pill pill-exec">Executing</span> · Communications</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Ensuring timely and suitable gathering, creation, distribution, storage, retrieval, and monitoring of communications</li>
+          <li>Follow the Communications Management Plan</li>
+          <li>Output: <strong>Project Communications</strong> — performance reports, deliverables status, baseline reporting</li>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🔥</div>
+        <div class="card-meta">
+          <div class="card-title">Implement Risk Responses</div>
+          <div class="card-subtitle"><span class="pill pill-exec">Executing</span> · Risk</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Executes risk response plans when risk has occurred</li>
+          <li>Minimizes project threats and maximizes project opportunities</li>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🏭</div>
+        <div class="card-meta">
+          <div class="card-title">Conduct Procurements</div>
+          <div class="card-subtitle"><span class="pill pill-exec">Executing</span> · Procurement</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Obtaining seller responses, selecting a seller, and awarding a contract</li>
+          <li>Selects a qualified seller and implements legal agreement for delivery</li>
+          <li><strong>Bidder Conference</strong> (pre-bid conference) — meeting between buyer and all potential sellers</li>
+          <li>Output: <strong>Selected Sellers</strong> + <strong>Agreements (Contracts)</strong></li>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🎯</div>
+        <div class="card-meta">
+          <div class="card-title">Manage Stakeholder Engagement</div>
+          <div class="card-subtitle"><span class="pill pill-exec">Executing</span> · Stakeholder</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Communicating and working with stakeholders to meet needs and expectations</li>
+          <li>Addressing issues and getting stakeholders involved</li>
+          <li><strong>Ground Rules</strong> — defined in Team Charter for team members and stakeholders</li>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ MONITORING & CONTROLLING ══════════════ -->
+<div id="tab-monitoring" class="tab-panel">
+  <div class="section-header">
+    <div class="section-title">Monitoring &amp; Controlling <span class="count-badge" style="background:var(--mc-bg);color:var(--mc)">12 processes</span></div>
+    <div class="section-desc">Tracking, reviewing, and regulating project progress. Runs simultaneously with all other process groups.</div>
+  </div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">📈</div>
+        <div class="card-meta">
+          <div class="card-title">Monitor and Control Project Work</div>
+          <div class="card-subtitle"><span class="pill pill-mc">M&amp;C</span> · Integration</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Tracking, reviewing, and recording progress to meet PM Plan performance objectives</li>
+          <li>Takes Work Performance Information → creates Work Performance Reports</li>
+        </div>
+        <div class="formula">
+          <div class="formula-label">Data Flow</div>
+          Work Performance <strong>Data</strong> (raw, from Executing)<br>→ Work Performance <strong>Information</strong> (analyzed/compared)<br>→ Work Performance <strong>Reports</strong> (distributed to stakeholders)
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🔄</div>
+        <div class="card-meta">
+          <div class="card-title">Perform Integrated Change Control</div>
+          <div class="card-subtitle"><span class="pill pill-mc">M&amp;C</span> · Integration</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Reviewing all change requests; approving/rejecting changes to deliverables, documents, PM Plan</li>
+          <li>Any stakeholder may request a change (must be in writing)</li>
+          <li>PM assesses impact; submits to Change Control Board (CCB)</li>
+          <li><strong>CCB</strong> — responsible for reviewing, evaluating, approving, deferring, or rejecting changes</li>
+          <li>Output: <strong>Approved Change Requests</strong> → implemented in Direct &amp; Manage Project Work</li>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          The PM does NOT approve changes alone — that's the CCB's role. Approved change requests are implemented in the Executing process group. Change Log tracks all decisions.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">✔️</div>
+        <div class="card-meta">
+          <div class="card-title">Validate Scope</div>
+          <div class="card-subtitle"><span class="pill pill-mc">M&amp;C</span> · Scope</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Formalizing acceptance of completed project deliverables</li>
+          <li>Verified deliverables reviewed with customer/sponsor for formal acceptance</li>
+          <li>Done at the same time as or immediately after Control Quality</li>
+          <li>Concerned with <strong>correctness</strong> of the deliverable</li>
+          <li>Output: <strong>Accepted Deliverables</strong> — signed off by sponsor/customer</li>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Quality Control verifies correctness (internal). Validate Scope gets formal customer acceptance (external). Validate Scope uses VERIFIED deliverables from Control Quality as input.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🔭</div>
+        <div class="card-meta">
+          <div class="card-title">Control Scope</div>
+          <div class="card-subtitle"><span class="pill pill-mc">M&amp;C</span> · Scope</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Monitoring status of project/product scope and managing changes to scope baseline</li>
+          <li><strong>Scope Creep</strong> — uncontrolled expansion WITHOUT adjustments to time, cost, resources</li>
+          <li>When changes approved, project baselines must be adjusted</li>
+          <li>Tools: Variance Analysis + Trend Analysis</li>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">⏰</div>
+        <div class="card-meta">
+          <div class="card-title">Control Schedule</div>
+          <div class="card-subtitle"><span class="pill pill-mc">M&amp;C</span> · Schedule</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Monitoring status to update schedule and manage changes to schedule baseline</li>
+          <li>Compare work results to plan — identify variances</li>
+          <li>Tools: Earned Value Analysis, Performance Reviews, What-If Scenarios, CPM, Resource Optimization, Schedule Compression (Fast Track/Crash)</li>
+          <li>Output: <strong>Schedule Forecasts</strong> — based on past and expected future performance</li>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">💵</div>
+        <div class="card-meta">
+          <div class="card-title">Control Costs</div>
+          <div class="card-subtitle"><span class="pill pill-mc">M&amp;C</span> · Cost</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Monitoring status to update costs and manage changes to cost baseline</li>
+          <li>Primarily concerned with cost variance</li>
+          <li>Any budget increase must go through Perform Integrated Change Control</li>
+          <li>Output: <strong>Cost Forecasts</strong> — uses EAC (Estimate at Completion) EVM formula</li>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          EVM formulas are major exam topics — see the Formulas tab for all EVM calculations. TCPI (To-Complete Performance Index) tells you how efficiently you need to work to meet budget goals.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🔍</div>
+        <div class="card-meta">
+          <div class="card-title">Control Quality</div>
+          <div class="card-subtitle"><span class="pill pill-mc">M&amp;C</span> · Quality</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Assessing performance — project outputs complete, correct, meet expectations</li>
+          <li>Each deliverable inspected, measured, and tested</li>
+          <li>Data Gathering: Checklists · Check Sheets · Statistical Sampling · Questionnaires</li>
+          <li>Output: <strong>Verified Deliverables</strong> (input to Validate Scope)</li>
+          <li><strong>Control Charts</strong> — "Rule of 7": 7 consecutive points on one side = out of control</li>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Control Quality = internal verification (team checks). Validate Scope = external acceptance (customer signs off). Verified Deliverables go FROM Control Quality TO Validate Scope.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🏗️</div>
+        <div class="card-meta">
+          <div class="card-title">Control Resources</div>
+          <div class="card-subtitle"><span class="pill pill-mc">M&amp;C</span> · Resource</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Managing PHYSICAL resources on the project as it progresses</li>
+          <li>Does NOT cover HR resources (covered in Manage Team)</li>
+          <li>Ensures physical resources are used correctly and efficiently</li>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">📻</div>
+        <div class="card-meta">
+          <div class="card-title">Monitor Communications, Risks &amp; Stakeholders</div>
+          <div class="card-subtitle"><span class="pill pill-mc">M&amp;C</span> · Multiple KAs</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li><strong>Monitor Communications</strong> — ensures communications requirements of project and stakeholders are met; ensures communications plan is followed</li>
+          <li><strong>Monitor Risks</strong> — tracks identified risks, identifies new risks, evaluates risk process effectiveness (24/7/365)</li>
+          <li><strong>Monitor Stakeholder Engagement</strong> — monitoring relationships; adjusting engagement strategies and plans</li>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Risk monitoring is continuous — not a one-time activity. New risks emerge throughout the project. Monitor Risks overlaps with Identify Risks (ongoing throughout lifecycle).
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">📜</div>
+        <div class="card-meta">
+          <div class="card-title">Control Procurements</div>
+          <div class="card-subtitle"><span class="pill pill-mc">M&amp;C</span> · Procurement</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Managing procurement relationships; monitoring contract performance; closing contracts</li>
+          <li><strong>Claims Administration</strong> — settles disputed changes when buyer and seller disagree (negotiation is preferred)</li>
+          <li>Output: <strong>Closed Procurements</strong> — formal written notice from authorized procurement administrator</li>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ CLOSING ══════════════ -->
+<div id="tab-closing" class="tab-panel">
+  <div class="section-header">
+    <div class="section-title">Closing Process Group <span class="count-badge" style="background:var(--close-bg);color:var(--close)">1 process</span></div>
+    <div class="section-desc">Finalizing all activities and formally closing the project or phase.</div>
+  </div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🏁</div>
+        <div class="card-meta">
+          <div class="card-title">Close Project or Phase</div>
+          <div class="card-subtitle"><span class="pill pill-close">Closing</span> · Integration</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>All documents and deliverables up-to-date; all issues resolved</li>
+          <li>Confirming formal acceptance of deliverables by customer</li>
+          <li>Closing project accounts</li>
+          <li>Reassigning personnel</li>
+          <li>Confirming formal acceptance of seller's work; finalizing open claims</li>
+          <li>Audit project success or failure</li>
+          <li>Identify lessons learned; archive project information for future use</li>
+          <li>Transfer products/services/results to next phase or production</li>
+          <li>Document reasons if project terminated before completion</li>
+        </div>
+        <div class="itto-grid">
+          <div class="itto-box itto-box-i">
+            <div class="itto-label">Key Inputs</div>
+            <ul class="itto-list">
+              <li>Project Charter</li>
+              <li>PM Plan</li>
+              <li>Accepted Deliverables</li>
+              <li>Business Documents</li>
+              <li>Agreements</li>
+              <li>OPA</li>
+            </ul>
+          </div>
+          <div class="itto-box itto-box-t">
+            <div class="itto-label">Tools</div>
+            <ul class="itto-list">
+              <li>Expert Judgment</li>
+              <li>Data Analysis</li>
+              <li>Meetings</li>
+            </ul>
+          </div>
+          <div class="itto-box itto-box-o">
+            <div class="itto-label">Outputs</div>
+            <ul class="itto-list">
+              <li>Project Doc Updates</li>
+              <li>Final Product/Service Transition</li>
+              <li>Final Report</li>
+              <li>OPA Updates</li>
+            </ul>
+          </div>
+        </div>
+        <div class="formula" style="margin-top:14px">
+          <div class="formula-label">Final Report Contains</div>
+          Summary of what took place · Project success level · Variations in baselines
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Close Project is also used when a project is TERMINATED early — you must document reasons. Accepted Deliverables (from Validate Scope) are a key input. Lessons Learned get archived to OPA.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════ FORMULAS & TIPS ══════════════ -->
+<div id="tab-formulas" class="tab-panel">
+  <div class="section-header">
+    <div class="section-title">Formulas, Mnemonics &amp; Exam Tips</div>
+    <div class="section-desc">All key calculations and memory aids for the PMP exam in one place.</div>
+  </div>
+  <div class="grid-2">
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">📐</div>
+        <div class="card-meta">
+          <div class="card-title">PERT / Three-Point Estimating</div>
+          <div class="card-subtitle">Schedule &amp; Cost Estimating</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="formula">
+          <div class="formula-label">Beta Distribution (PERT Weighted Average)</div>
+          <strong>E = (O + 4M + P) / 6</strong><br><br>
+          O = Optimistic · M = Most Likely · P = Pessimistic
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Triangle Distribution</div>
+          E = (O + M + P) / 3
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Standard Deviation</div>
+          SD = (P − O) / 6
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Example</div>
+          O=8, P=14, M=10<br>
+          Beta: (8 + 40 + 14) / 6 = 62/6 = <strong>10.33 days</strong><br>
+          Triangle: (8 + 10 + 14) / 3 = <strong>10.67 days</strong><br>
+          SD: (14−8)/6 = <strong>1.0 day</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">📡</div>
+        <div class="card-meta">
+          <div class="card-title">Communications Channels Formula</div>
+          <div class="card-subtitle">Plan Communications</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="formula">
+          <div class="formula-label">Channels Formula</div>
+          <strong>Channels = n(n−1) / 2</strong><br><br>
+          n = number of people on the project
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Examples</div>
+          4 people: 4(3)/2 = <strong>6 channels</strong><br>
+          10 people: 10(9)/2 = <strong>45 channels</strong><br>
+          11 people: 11(10)/2 = <strong>55 channels</strong> (+10 from adding 1 person)
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Adding 1 person to a project adds n new channels (where n = old team size). This shows why communication complexity grows rapidly with team size.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">💹</div>
+        <div class="card-meta">
+          <div class="card-title">Expected Monetary Value (EMV)</div>
+          <div class="card-subtitle">Quantitative Risk Analysis</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="formula">
+          <div class="formula-label">EMV Formula</div>
+          <strong>EMV = Probability × Impact (cost)</strong><br>
+          <strong>Total = Initial Cost + EMV</strong>
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Decision Tree Example</div>
+          Option A: $1M initial + $400K risk @ 25% → EMV = $100K → Total = <strong>$1.1M</strong><br>
+          Option B: $800K initial + $500K risk @ 10% → EMV = $50K → Total = <strong>$850K</strong><br>
+          → Choose <strong>Option B</strong> (lower total)
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Negative EMV = threat (cost). Positive EMV = opportunity (benefit). Use Decision Tree Analysis to compare alternatives. Choose lowest total cost (or highest benefit for opportunities).
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">💰</div>
+        <div class="card-meta">
+          <div class="card-title">Cost Estimate Accuracy Ranges</div>
+          <div class="card-subtitle">Estimate Costs</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="formula">
+          <div class="formula-label">Estimate Types</div>
+          <strong>Rough Order of Magnitude (ROM):</strong> −25% to +75%<br>
+          (Early project, limited info)<br><br>
+          <strong>Budget Estimate:</strong> −10% to +25%<br>
+          (Mid-project, more planning done)<br><br>
+          <strong>Definitive Estimate:</strong> −5% to +10%<br>
+          (Late project, detailed scope known)
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          Accuracy IMPROVES as the project progresses. Early = ROM (widest range). Later = Definitive (most accurate). The negative range is always smaller than the positive range.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🗂️</div>
+        <div class="card-meta">
+          <div class="card-title">Contract Type — Risk Summary</div>
+          <div class="card-subtitle">Plan Procurement</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="formula">
+          <div class="formula-label">Risk Distribution</div>
+          ← More Buyer Risk ________________________ More Seller Risk →<br><br>
+          T&amp;M &nbsp;&nbsp;&nbsp;&nbsp; Cost-Reimbursable &nbsp;&nbsp;&nbsp;&nbsp; Fixed Price<br><br>
+          <strong>Fixed Price:</strong> Seller bears cost overrun risk. Use when scope is well-defined.<br>
+          <strong>Cost-Reimbursable:</strong> Buyer bears cost risk. Use when scope is unclear.<br>
+          <strong>Time &amp; Material:</strong> Buyer takes all risk on both labor and materials.
+        </div>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          If an exam scenario says "scope is unclear" → T&amp;M or CR contract. "Scope is well-defined" → Fixed Price. FFP = no changes allowed. FPIF = performance incentives built in.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🧠</div>
+        <div class="card-meta">
+          <div class="card-title">Key Mnemonics &amp; Memory Tricks</div>
+          <div class="card-subtitle">Quick recall for the exam</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="formula">
+          <div class="formula-label">Process Groups</div>
+          <strong>"I Plan Every Monday Carefully"</strong><br>
+          Initiating · Planning · Executing · Monitoring &amp; Controlling · Closing
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Tuckman's Stages</div>
+          <strong>"Forming Storms Normally Performs Adjourning"</strong><br>
+          Forming → Storming → Norming → Performing → Adjourning
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Risk — Threats: EATMA</div>
+          Escalate · Avoid · Transfer · Mitigate · Accept
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Risk — Opportunities: EEESHA</div>
+          Escalate · Exploit · Enhance · Share · Accept
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Scope Baseline = 3 Things</div>
+          Scope Statement + WBS + WBS Dictionary
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">4 Baselines (SSCP)</div>
+          Scope · Schedule · Cost · Performance Measurement
+        </div>
+        <div class="formula" style="margin-top:8px">
+          <div class="formula-label">Conflict Resolution — Best to Worst</div>
+          Problem Solving (Win-Win) → Compromise → Smooth → Force → Withdraw (WORST)
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">📊</div>
+        <div class="card-meta">
+          <div class="card-title">Quality Tools Quick Reference</div>
+          <div class="card-subtitle">Manage Quality &amp; Control Quality</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <table class="conflict-table">
+          <tr><th>Tool</th><th>Purpose</th></tr>
+          <tr><td>Fishbone/Ishikawa</td><td>Identifies root causes of defects</td></tr>
+          <tr><td>Pareto Chart</td><td>80/20 rule; prioritize top defect causes</td></tr>
+          <tr><td>Control Chart</td><td>Process in/out of control; Rule of 7</td></tr>
+          <tr><td>Scatter Diagram</td><td>Correlation between two variables</td></tr>
+          <tr><td>Histogram</td><td>Frequency distribution of data</td></tr>
+          <tr><td>Flowchart</td><td>Process steps and decision points</td></tr>
+          <tr><td>Check Sheet</td><td>Running tally of defect data</td></tr>
+          <tr><td>Affinity Diagram</td><td>Group and sort large volumes of ideas</td></tr>
+        </table>
+        <div class="tip">
+          <div class="tip-label">📌 Exam Tip</div>
+          "7 Basic Quality Tools" often tested. Pareto = 80% of problems from 20% of causes. Control Chart upper/lower control limits = 3 sigma. Rule of 7 = 7 consecutive data points on one side of the mean.
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header" onclick="toggleCard(this)">
+        <div class="card-icon">🔑</div>
+        <div class="card-meta">
+          <div class="card-title">Top 15 Exam Tips</div>
+          <div class="card-subtitle">High-value test points</div>
+        </div>
+        <div class="card-chevron">▾</div>
+      </div>
+      <div class="card-body">
+        <div class="detail-list">
+          <li>Project Charter signed by <strong>senior management</strong>, not the PM</li>
+          <li>PM Plan only changed via <strong>approved Change Request from CCB</strong></li>
+          <li>Planning is the <strong>largest process group</strong> (24 processes)</li>
+          <li>Lack of communication = #1 cause of project failure</li>
+          <li>Communications formula: <strong>n(n−1)/2</strong></li>
+          <li>PERT formula: <strong>(O + 4M + P) / 6</strong></li>
+          <li>Best conflict resolution: <strong>Problem Solving</strong> (Win-Win)</li>
+          <li>Worst conflict resolution: <strong>Withdrawal</strong></li>
+          <li>Best forms of power: <strong>Expert and Reward</strong></li>
+          <li>Scope Baseline = <strong>Scope Statement + WBS + WBS Dictionary</strong></li>
+          <li>Project Budget = Cost Baseline + <strong>Management Reserves</strong></li>
+          <li>Verified Deliverables go from <strong>Control Quality → Validate Scope</strong></li>
+          <li>Fixed Price = <strong>seller risk</strong>; T&amp;M = <strong>buyer risk</strong></li>
+          <li>Risk monitoring is <strong>continuous</strong> throughout the project</li>
+          <li>Sunk costs are <strong>irrelevant</strong> to future decisions — ignore them</li>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div><!-- end content -->
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+}
+
+function toggleCard(header) {
+  const card = header.parentElement;
+  card.classList.toggle('open');
+}
+
+// Open first card in each panel on load for discoverability
+document.querySelectorAll('.tab-panel').forEach(panel => {
+  const first = panel.querySelector('.card');
+  if (first) first.classList.add('open');
+});
+</script>
+</body>
+</html>
