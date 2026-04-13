@@ -1,0 +1,2378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMP Agile Study Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #f0f2f7;
+    --surface: #ffffff;
+    --surface2: #f7f8fc;
+    --border: #e2e6f0;
+    --text: #1a1d2e;
+    --text-muted: #6b7280;
+    --accent: #3b5bdb;
+
+    --cat-foundation: #3b5bdb;
+    --cat-foundation-bg: #eef2ff;
+    --cat-scrum: #0ea5a0;
+    --cat-scrum-bg: #e6faf9;
+    --cat-xp: #7c3aed;
+    --cat-xp-bg: #f3f0ff;
+    --cat-lean: #d97706;
+    --cat-lean-bg: #fffbeb;
+    --cat-planning: #059669;
+    --cat-planning-bg: #ecfdf5;
+    --cat-team: #db2777;
+    --cat-team-bg: #fdf2f8;
+    --cat-value: #ea580c;
+    --cat-value-bg: #fff7ed;
+    --cat-improvement: #0284c7;
+    --cat-improvement-bg: #e0f2fe;
+
+    --tip-border: #22c55e;
+    --tip-bg: #f0fdf4;
+    --tip-text: #15803d;
+
+    --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.05);
+    --radius: 10px;
+    --radius-sm: 6px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d2e;
+      --surface2: #22263a;
+      --border: #2d3252;
+      --text: #e8eaf6;
+      --text-muted: #8891b4;
+
+      --cat-foundation-bg: #1e2348;
+      --cat-scrum-bg: #0d2e2d;
+      --cat-xp-bg: #1e1540;
+      --cat-lean-bg: #2a1f08;
+      --cat-planning-bg: #0d2418;
+      --cat-team-bg: #2a0d1e;
+      --cat-value-bg: #2a1508;
+      --cat-improvement-bg: #08202e;
+
+      --tip-bg: #0d2018;
+      --tip-text: #4ade80;
+      --shadow: 0 1px 3px rgba(0,0,0,0.3);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
+      --shadow-lg: 0 10px 15px rgba(0,0,0,0.5);
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow);
+  }
+  .header-inner {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .header-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .header-badge {
+    background: var(--accent);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+  .header h1 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+  .header h1 span { color: var(--accent); }
+
+  /* TABS */
+  .tab-bar {
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 2px;
+  }
+  .tab-bar::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    padding: 7px 14px;
+    border-radius: var(--radius-sm);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tab-btn:hover { background: var(--surface2); color: var(--text); }
+  .tab-btn.active {
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+  }
+  .tab-btn .tab-icon { font-size: 14px; }
+
+  /* MAIN */
+  .main {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 28px 20px;
+  }
+
+  /* PANE */
+  .pane { display: none; }
+  .pane.active { display: block; }
+
+  /* SECTION HEADER */
+  .section-header {
+    margin-bottom: 20px;
+  }
+  .section-header h2 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    margin-bottom: 4px;
+  }
+  .section-header p {
+    color: var(--text-muted);
+    font-size: 13px;
+  }
+
+  /* GRID */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 14px;
+  }
+  .grid-2 { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+  .grid-wide { grid-template-columns: 1fr; max-width: 900px; }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+  }
+  .card:hover { box-shadow: var(--shadow-md); }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    cursor: pointer;
+    gap: 12px;
+    user-select: none;
+  }
+  .card-header:hover .card-title { color: var(--accent); }
+
+  .card-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+  }
+  .card-icon {
+    font-size: 18px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    flex-shrink: 0;
+  }
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    transition: color 0.15s;
+    line-height: 1.3;
+  }
+  .card-chevron {
+    color: var(--text-muted);
+    font-size: 12px;
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+  .card.open .card-chevron { transform: rotate(180deg); }
+  .card.open .card-header { border-bottom: 1px solid var(--border); }
+
+  .card-body {
+    display: none;
+    padding: 16px;
+    font-size: 13.5px;
+  }
+  .card.open .card-body { display: block; }
+
+  /* PILL LABEL */
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  .pill-foundation { background: var(--cat-foundation-bg); color: var(--cat-foundation); }
+  .pill-scrum { background: var(--cat-scrum-bg); color: var(--cat-scrum); }
+  .pill-xp { background: var(--cat-xp-bg); color: var(--cat-xp); }
+  .pill-lean { background: var(--cat-lean-bg); color: var(--cat-lean); }
+  .pill-planning { background: var(--cat-planning-bg); color: var(--cat-planning); }
+  .pill-team { background: var(--cat-team-bg); color: var(--cat-team); }
+  .pill-value { background: var(--cat-value-bg); color: var(--cat-value); }
+  .pill-improvement { background: var(--cat-improvement-bg); color: var(--cat-improvement); }
+
+  /* ICON COLORS */
+  .icon-foundation { background: var(--cat-foundation-bg); }
+  .icon-scrum { background: var(--cat-scrum-bg); }
+  .icon-xp { background: var(--cat-xp-bg); }
+  .icon-lean { background: var(--cat-lean-bg); }
+  .icon-planning { background: var(--cat-planning-bg); }
+  .icon-team { background: var(--cat-team-bg); }
+  .icon-value { background: var(--cat-value-bg); }
+  .icon-improvement { background: var(--cat-improvement-bg); }
+
+  /* TIP BOX */
+  .tip {
+    border-left: 3px solid var(--tip-border);
+    background: var(--tip-bg);
+    padding: 10px 14px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    margin-top: 12px;
+    font-size: 12.5px;
+  }
+  .tip-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--tip-border);
+    margin-bottom: 4px;
+  }
+  .tip p { color: var(--tip-text); line-height: 1.5; }
+
+  /* LISTS */
+  .card-body ul {
+    list-style: none;
+    margin-top: 8px;
+  }
+  .card-body ul li {
+    padding: 4px 0 4px 18px;
+    position: relative;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .card-body ul li:last-child { border-bottom: none; }
+  .card-body ul li::before {
+    content: '›';
+    position: absolute;
+    left: 4px;
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+
+  /* ORDERED LIST */
+  .card-body ol {
+    list-style: none;
+    counter-reset: ol-counter;
+    margin-top: 8px;
+  }
+  .card-body ol li {
+    counter-increment: ol-counter;
+    padding: 5px 0 5px 28px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .card-body ol li:last-child { border-bottom: none; }
+  .card-body ol li::before {
+    content: counter(ol-counter);
+    position: absolute;
+    left: 0;
+    background: var(--surface2);
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 11px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    top: 7px;
+  }
+
+  /* DEFINITION GRID */
+  .def-grid { display: grid; gap: 8px; margin-top: 10px; }
+  .def-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 8px;
+    align-items: start;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12.5px;
+  }
+  .def-row:last-child { border-bottom: none; }
+  .def-term {
+    font-weight: 600;
+    color: var(--accent);
+    font-size: 12px;
+  }
+  .def-val { color: var(--text); }
+
+  /* COMPARISON TABLE */
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    font-size: 12.5px;
+  }
+  .compare-table th {
+    background: var(--surface2);
+    padding: 8px 10px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    border-bottom: 2px solid var(--border);
+  }
+  .compare-table td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .compare-table tr:last-child td { border-bottom: none; }
+  .compare-table tr:hover td { background: var(--surface2); }
+  .compare-table td:first-child { font-weight: 600; color: var(--accent); }
+
+  /* FORMULA BOX */
+  .formula {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    margin-top: 10px;
+    color: var(--accent);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .formula-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  /* VALUE PAIR */
+  .value-pair {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  .value-pair:last-child { border-bottom: none; }
+  .value-left {
+    font-weight: 600;
+    color: var(--accent);
+    min-width: 170px;
+  }
+  .value-over {
+    color: var(--text-muted);
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .value-right {
+    color: var(--text-muted);
+    text-decoration: line-through;
+    text-decoration-color: rgba(239,68,68,0.4);
+  }
+
+  /* STAGES */
+  .stage-list { margin-top: 10px; }
+  .stage {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .stage:last-child { border-bottom: none; }
+  .stage-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .stage-content { flex: 1; }
+  .stage-name { font-weight: 600; font-size: 13px; margin-bottom: 2px; }
+  .stage-desc { font-size: 12.5px; color: var(--text-muted); }
+  .stage-tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--cat-foundation-bg);
+    padding: 1px 7px;
+    border-radius: 10px;
+    margin-left: 6px;
+  }
+
+  /* OVERVIEW GRID */
+  .overview-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .overview-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    box-shadow: var(--shadow);
+  }
+  .overview-card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .overview-card ul { list-style: none; }
+  .overview-card ul li {
+    font-size: 12.5px;
+    padding: 3px 0 3px 14px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+  .overview-card ul li:last-child { border-bottom: none; }
+  .overview-card ul li::before {
+    content: '•';
+    position: absolute;
+    left: 2px;
+    color: var(--accent);
+  }
+
+  .separator {
+    height: 1px;
+    background: var(--border);
+    margin: 24px 0;
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* MNEMONIC */
+  .mnemonic-grid {
+    display: grid;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .mnemonic-row {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 10px;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .mnemonic-row:last-child { border-bottom: none; }
+  .mnemonic-letter {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--accent);
+    font-family: 'DM Mono', monospace;
+    text-align: center;
+  }
+  .mnemonic-word { font-weight: 600; font-size: 13px; }
+  .mnemonic-def { font-size: 12px; color: var(--text-muted); }
+
+  /* TUCKMAN MAP */
+  .tuckman-flow {
+    display: flex;
+    gap: 0;
+    margin-top: 12px;
+    overflow-x: auto;
+  }
+  .tuckman-step {
+    flex: 1;
+    min-width: 90px;
+    text-align: center;
+    padding: 10px 8px;
+    position: relative;
+  }
+  .tuckman-step:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 14px;
+    z-index: 1;
+  }
+  .tuckman-name {
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .tuckman-style {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--surface2);
+    padding: 2px 6px;
+    border-radius: 4px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 700px) {
+    .header { padding: 14px 16px; }
+    .main { padding: 18px 12px; }
+    .grid { grid-template-columns: 1fr; }
+    .def-row { grid-template-columns: 1fr; gap: 2px; }
+    .value-left { min-width: 120px; }
+    .header-inner { flex-direction: column; align-items: flex-start; }
+    .tuckman-flow { flex-direction: column; }
+    .tuckman-step::after { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-title">
+      <div class="header-badge">PMP</div>
+      <h1>Agile <span>Study Guide</span></h1>
+    </div>
+    <nav class="tab-bar" id="tabBar">
+      <button class="tab-btn active" onclick="showTab('overview')" data-tab="overview"><span class="tab-icon">🗺️</span> Overview</button>
+      <button class="tab-btn" onclick="showTab('foundation')" data-tab="foundation"><span class="tab-icon">🏗️</span> Foundation</button>
+      <button class="tab-btn" onclick="showTab('scrum')" data-tab="scrum"><span class="tab-icon">🔄</span> Scrum</button>
+      <button class="tab-btn" onclick="showTab('xp')" data-tab="xp"><span class="tab-icon">⚡</span> XP</button>
+      <button class="tab-btn" onclick="showTab('lean')" data-tab="lean"><span class="tab-icon">♻️</span> Lean & Kanban</button>
+      <button class="tab-btn" onclick="showTab('planning')" data-tab="planning"><span class="tab-icon">📅</span> Planning</button>
+      <button class="tab-btn" onclick="showTab('team')" data-tab="team"><span class="tab-icon">👥</span> Team</button>
+      <button class="tab-btn" onclick="showTab('value')" data-tab="value"><span class="tab-icon">💎</span> Value & Risk</button>
+      <button class="tab-btn" onclick="showTab('improvement')" data-tab="improvement"><span class="tab-icon">📈</span> Improvement</button>
+    </nav>
+  </div>
+</header>
+
+<main class="main">
+
+<!-- ===================== OVERVIEW ===================== -->
+<section class="pane active" id="pane-overview">
+  <div class="section-header">
+    <h2>🗺️ Full Overview</h2>
+    <p>Everything at a glance — all domains and key concepts from your Agile notes.</p>
+  </div>
+
+  <div class="section-label">Domain I — Agile Principles & Mindset</div>
+  <div class="overview-row">
+    <div class="overview-card">
+      <h3><span class="pill pill-foundation">Foundation</span> What is Agile</h3>
+      <ul>
+        <li>Iterative development methodology (umbrella term)</li>
+        <li>Applicable beyond software — all project types</li>
+        <li>Methods: Scrum, XP, Kanban, Lean</li>
+        <li>Incremental builds, continuous planning, early value</li>
+        <li>Welcomes change vs. discouraging it</li>
+      </ul>
+    </div>
+    <div class="overview-card">
+      <h3><span class="pill pill-foundation">Foundation</span> Agile Manifesto (2001)</h3>
+      <ul>
+        <li>4 Values + 12 Guiding Principles</li>
+        <li>Individuals & Interactions > Processes & Tools</li>
+        <li>Working Software > Comprehensive Documentation</li>
+        <li>Customer Collaboration > Contract Negotiation</li>
+        <li>Responding to Change > Following a Plan</li>
+      </ul>
+    </div>
+    <div class="overview-card">
+      <h3><span class="pill pill-foundation">Foundation</span> Agile Mindset</h3>
+      <ul>
+        <li>Welcoming change; value-driven development</li>
+        <li>Small increments with feedback loops</li>
+        <li>Learning through discovery; failing fast</li>
+        <li>Continuous delivery & improvement</li>
+        <li>Triangle: Fixed scope (traditional) → Variable scope (Agile)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label">Scrum Framework</div>
+  <div class="overview-row">
+    <div class="overview-card">
+      <h3><span class="pill pill-scrum">Scrum</span> Roles</h3>
+      <ul>
+        <li>Product Owner — owns vision, prioritizes backlog</li>
+        <li>ScrumMaster — facilitates, removes impediments</li>
+        <li>Development Team — self-organizing, cross-functional</li>
+      </ul>
+    </div>
+    <div class="overview-card">
+      <h3><span class="pill pill-scrum">Scrum</span> Events</h3>
+      <ul>
+        <li>Sprint Planning → Sprint Backlog created</li>
+        <li>Daily Scrum — 15 min standup (3 questions)</li>
+        <li>Sprint Review — demo to stakeholders</li>
+        <li>Sprint Retrospective — what went well/wrong</li>
+      </ul>
+    </div>
+    <div class="overview-card">
+      <h3><span class="pill pill-scrum">Scrum</span> Artifacts</h3>
+      <ul>
+        <li>Product Backlog — prioritized full requirements list</li>
+        <li>Sprint Backlog — selected items for sprint</li>
+        <li>Product Increment — shippable output per sprint</li>
+        <li>Definition of Done (DoD) — agreed completion criteria</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label">XP, Lean & Kanban</div>
+  <div class="overview-row">
+    <div class="overview-card">
+      <h3><span class="pill pill-xp">XP</span> Core Practices</h3>
+      <ul>
+        <li>TDD — write tests before code</li>
+        <li>Pair Programming — two devs, one keyboard</li>
+        <li>Continuous Integration — merge & test frequently</li>
+        <li>Refactoring — clean code continuously</li>
+        <li>Collective Code Ownership — anyone can change any code</li>
+      </ul>
+    </div>
+    <div class="overview-card">
+      <h3><span class="pill pill-lean">Lean</span> 7 Principles</h3>
+      <ul>
+        <li>Eliminate Waste • Empower Team • Deliver Fast</li>
+        <li>Build Quality In • Defer Decisions</li>
+        <li>Amplify Learning • Optimize the Whole</li>
+        <li>7 Wastes: Partial work, extra processes, extra features, task switching, waiting, motion, defects</li>
+      </ul>
+    </div>
+    <div class="overview-card">
+      <h3><span class="pill pill-lean">Kanban</span> 5 Principles</h3>
+      <ul>
+        <li>Visualize the workflow</li>
+        <li>Limit WIP — reduces bottlenecks</li>
+        <li>Manage flow — track and measure</li>
+        <li>Make process policies explicit</li>
+        <li>Improve collaboration scientifically</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-label">Planning, Team & Improvement</div>
+  <div class="overview-row">
+    <div class="overview-card">
+      <h3><span class="pill pill-planning">Planning</span> Estimation</h3>
+      <ul>
+        <li>Story Points — relative sizing (Fibonacci: 1,2,3,5,8,13,21)</li>
+        <li>Planning Poker — Wideband Delphi technique</li>
+        <li>Velocity = points completed per iteration</li>
+        <li>Iterations: Iteration 0, Dev Iterations, Iteration H</li>
+      </ul>
+    </div>
+    <div class="overview-card">
+      <h3><span class="pill pill-team">Team</span> Key Concepts</h3>
+      <ul>
+        <li>Tuckman's Stages: Forming→Storming→Norming→Performing→Adjourning</li>
+        <li>Adaptive Leadership matches stage to style</li>
+        <li>Servant Leadership — shield, remove impediments</li>
+        <li>COCOMO: People factor 33 (11× more than tools)</li>
+      </ul>
+    </div>
+    <div class="overview-card">
+      <h3><span class="pill pill-improvement">Improvement</span> Retrospectives</h3>
+      <ul>
+        <li>5 stages, ~2 hours total</li>
+        <li>1. Set Stage → 2. Gather Data → 3. Generate Insights</li>
+        <li>4. Decide What to Do → 5. Close Retrospective</li>
+        <li>Kaizen + PDCA cycle for continuous improvement</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOUNDATION ===================== -->
+<section class="pane" id="pane-foundation">
+  <div class="section-header">
+    <h2>🏗️ Agile Foundation</h2>
+    <p>Core concepts, the Manifesto, principles, and mindset.</p>
+  </div>
+  <div class="grid">
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-foundation">🌱</div>
+          <div>
+            <div class="card-title">What is Agile?</div>
+            <span class="pill pill-foundation">Foundation</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Iterative development methodology — an <strong>umbrella term</strong></li>
+          <li>Originally for software, but applicable to <strong>all project types</strong></li>
+          <li>Scrum is most common; others include XP, Lean, Kanban</li>
+          <li>Builds in increments (not as a whole)</li>
+          <li>Planning throughout (not all at once)</li>
+          <li>Delivers products over time — customer sees value <strong>faster</strong></li>
+          <li>Welcomes changes vs. discouraging them</li>
+        </ul>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip</div>
+          <p>Agile fixes <strong>Time & Cost</strong> but varies <strong>Scope</strong>. Traditional fixes Scope but varies Time & Cost. This "inverted triangle" is a common exam question.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-foundation">📜</div>
+          <div>
+            <div class="card-title">Agile Manifesto — 4 Values</div>
+            <span class="pill pill-foundation">Foundation</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">Created in 2001. "We value the items on the left <strong>more</strong>, while there is still value in items on the right."</p>
+        <div class="value-pair"><span class="value-left">Individuals & Interactions</span><span class="value-over">OVER</span><span class="value-right">Processes & Tools</span></div>
+        <div class="value-pair"><span class="value-left">Working Software</span><span class="value-over">OVER</span><span class="value-right">Comprehensive Documentation</span></div>
+        <div class="value-pair"><span class="value-left">Customer Collaboration</span><span class="value-over">OVER</span><span class="value-right">Contract Negotiation</span></div>
+        <div class="value-pair"><span class="value-left">Responding to Change</span><span class="value-over">OVER</span><span class="value-right">Following a Plan</span></div>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip</div>
+          <p>The right side is NOT worthless — it still has value. Agile simply values the <em>left side more</em>. Don't choose answers that say documentation has zero value.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-foundation">🔢</div>
+          <div>
+            <div class="card-title">12 Guiding Principles</div>
+            <span class="pill pill-foundation">Foundation</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <ol>
+          <li>Highest priority: satisfy customer via early & continuous valuable delivery</li>
+          <li>Welcome changing requirements, even late — harness for competitive advantage</li>
+          <li>Deliver working software frequently (weeks to months; prefer shorter)</li>
+          <li>Business & developers must work together <strong>daily</strong></li>
+          <li>Build around motivated individuals; give environment, support, and trust</li>
+          <li>Face-to-face conversation is most efficient & effective method</li>
+          <li>Working software is the primary <strong>measure of progress</strong></li>
+          <li>Agile processes promote sustainable development — constant pace indefinitely</li>
+          <li>Continuous attention to technical excellence & good design enhances agility</li>
+          <li>Simplicity — maximize the amount of work <strong>not done</strong></li>
+          <li>Best architectures emerge from <strong>self-organizing teams</strong></li>
+          <li>Team reflects regularly and adjusts behavior accordingly</li>
+        </ol>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip</div>
+          <p>Principle 7: Working software = measure of progress (NOT documentation). Principle 10: Do LESS work, not more — simplicity is an art.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-foundation">🧠</div>
+          <div>
+            <div class="card-title">Agile Mindset</div>
+            <span class="pill pill-foundation">Foundation</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Welcoming change</li>
+          <li>Working in small value increments</li>
+          <li>Using build-and-feedback loops</li>
+          <li>Learning through discovery</li>
+          <li>Value-driven development</li>
+          <li>Failing fast with learning</li>
+          <li>Continuous delivery</li>
+          <li>Continuous improvement</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-foundation">🤝</div>
+          <div>
+            <div class="card-title">Declaration of Interdependence (DOI)</div>
+            <span class="pill pill-foundation">Foundation</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">Agile and adaptive approaches for linking people, projects, and value (2005).</p>
+        <ul>
+          <li>Increase ROI → continuous flow of value</li>
+          <li>Deliver reliable results → customer interactions & shared ownership</li>
+          <li>Expect uncertainty → manage through iterations, anticipation, adaptation</li>
+          <li>Unleash creativity → individuals are the ultimate source of value</li>
+          <li>Boost performance → group accountability & shared responsibility</li>
+          <li>Improve effectiveness → situationally specific strategies & practices</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-foundation">📊</div>
+          <div>
+            <div class="card-title">Agile Concurrent Development</div>
+            <span class="pill pill-foundation">Foundation</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Fund incrementally — opt to extend, redirect, or cancel at a granular level</li>
+          <li>Deliver & realize value steadily</li>
+          <li>Validate designs with users & customers</li>
+          <li>Continuously adapt to risk and change</li>
+          <li>Integrate early & often</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== SCRUM ===================== -->
+<section class="pane" id="pane-scrum">
+  <div class="section-header">
+    <h2>🔄 Scrum Framework</h2>
+    <p>Roles, events, artifacts, and the Scrum process in detail.</p>
+  </div>
+  <div class="grid">
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-scrum">🏛️</div>
+          <div>
+            <div class="card-title">Scrum Pillars</div>
+            <span class="pill pill-scrum">Scrum</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="def-grid">
+          <div class="def-row"><span class="def-term">Transparency</span><span class="def-val">Visibility to those responsible for the outcome</span></div>
+          <div class="def-row"><span class="def-term">Inspection</span><span class="def-val">Timely checks on how well the project is progressing; looks for problematic deviations</span></div>
+          <div class="def-row"><span class="def-term">Adaptation</span><span class="def-val">Adjusting a process to minimize further issues when an inspection shows a problem</span></div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip</div>
+          <p>Scrum is built on <strong>TIA</strong> — Transparency, Inspection, Adaptation. These 3 pillars underpin every Scrum activity.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-scrum">👤</div>
+          <div>
+            <div class="card-title">Scrum Roles</div>
+            <span class="pill pill-scrum">Scrum</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="def-grid">
+          <div class="def-row">
+            <span class="def-term">Product Owner</span>
+            <span class="def-val">Owns product vision; defines features & release dates; prioritizes by market value; can change priorities every sprint</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">ScrumMaster</span>
+            <span class="def-val">Facilitates process; protects team from external interruption; enhances productivity; assists Product Owner</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">Development Team</span>
+            <span class="def-val">Small, cross-functional, self-organizing; focuses on steady delivery; manages own work within sprints</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-scrum">📅</div>
+          <div>
+            <div class="card-title">Sprint Planning Meeting</div>
+            <span class="pill pill-scrum">Scrum</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Determines what work will be done in the sprint</li>
+          <li>Team predicts deliverables based on estimates, capacity, past performance</li>
+          <li>Team determines how functionality will be built</li>
+          <li>Output: <strong>Sprint Backlog</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-scrum">⏱️</div>
+          <div>
+            <div class="card-title">Sprints (Iterations)</div>
+            <span class="pill pill-scrum">Scrum</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Timeboxed iteration of <strong>1–4 weeks</strong></li>
+          <li>Produces a <strong>potentially releasable product increment</strong></li>
+          <li>No changes during sprint that would affect sprint goal</li>
+          <li>Development team composition stays the same throughout</li>
+        </ul>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip</div>
+          <p>Sprint = Iteration. Typical sprint is 1–4 weeks. No mid-sprint changes to sprint goal — changes go to the next sprint backlog.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-scrum">☀️</div>
+          <div>
+            <div class="card-title">Daily Scrum (Standup)</div>
+            <span class="pill pill-scrum">Scrum</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li><strong>15-minute</strong> time-boxed activity</li>
+          <li>Same time and place each day</li>
+          <li>Each member answers 3 questions:</li>
+        </ul>
+        <ol>
+          <li>What did I do <strong>yesterday</strong>?</li>
+          <li>What will I do <strong>today</strong>?</li>
+          <li>Are there any <strong>impediments</strong> in my way?</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-scrum">🎯</div>
+          <div>
+            <div class="card-title">Sprint Review</div>
+            <span class="pill pill-scrum">Scrum</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Takes place at the <strong>end of the sprint</strong></li>
+          <li>Gathers feedback from stakeholders on completed work</li>
+          <li>Team demonstrates completed work</li>
+          <li>Creates a conversation between team & stakeholders</li>
+          <li>Time-boxed: <strong>max 1 hour per week of sprint</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-scrum">🔁</div>
+          <div>
+            <div class="card-title">Sprint Retrospective</div>
+            <span class="pill pill-scrum">Scrum</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <p style="margin-bottom:8px;">Inspect and create a plan for improvements in the next sprint.</p>
+        <ul>
+          <li>What went <strong>well</strong>?</li>
+          <li>What went <strong>wrong</strong>?</li>
+          <li>What to do <strong>more</strong> of?</li>
+          <li>What to do <strong>less</strong> of?</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-scrum">📦</div>
+          <div>
+            <div class="card-title">Scrum Artifacts</div>
+            <span class="pill pill-scrum">Scrum</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="def-grid">
+          <div class="def-row">
+            <span class="def-term">Product Backlog</span>
+            <span class="def-val">Prioritized, dynamic list of all work. Managed by Product Owner. Sorted by value — most valuable first. Continuously "groomed."</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">Sprint Backlog</span>
+            <span class="def-val">Items selected from Product Backlog for the sprint. Only updated by development team. Highly visible view of work.</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">Product Increment</span>
+            <span class="def-val">Shippable part of product completed after each sprint. Product Owner & team must agree on "Definition of Done."</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-scrum">✅</div>
+          <div>
+            <div class="card-title">Definition of Done (DoD)</div>
+            <span class="pill pill-scrum">Scrum</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Shared understanding of what "done" means</li>
+          <li>Defined at the <strong>beginning of the project</strong></li>
+          <li>Applies globally to the project</li>
+          <li>May include: unit tests, documentation, code writing standards</li>
+        </ul>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip</div>
+          <p>DoD ≠ Acceptance Criteria. DoD is a shared team standard; Acceptance Criteria is specific to each user story.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-scrum">📖</div>
+          <div>
+            <div class="card-title">Key Agile Terms Glossary</div>
+            <span class="pill pill-scrum">Scrum</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <table class="compare-table">
+          <tr><th>Scrum</th><th>XP</th><th>Definition</th></tr>
+          <tr><td>Sprint</td><td>Iteration</td><td>Fixed-length timebox (1–4 weeks)</td></tr>
+          <tr><td>Release</td><td>Small Release</td><td>Release to production</td></tr>
+          <tr><td>Sprint Planning</td><td>Planning Game</td><td>Agile planning meeting</td></tr>
+          <tr><td>Product Owner</td><td>Customer</td><td>Business representative</td></tr>
+          <tr><td>Retrospective</td><td>Reflection</td><td>"Lessons learned" meeting</td></tr>
+          <tr><td>ScrumMaster</td><td>Coach</td><td>Agile project manager</td></tr>
+          <tr><td>Development Team</td><td>Team</td><td>Cross-functional empowered team</td></tr>
+          <tr><td>Daily Scrum</td><td>Daily Standup</td><td>Brief 15-min daily status meeting</td></tr>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== XP ===================== -->
+<section class="pane" id="pane-xp">
+  <div class="section-header">
+    <h2>⚡ Extreme Programming (XP)</h2>
+    <p>Software-centric Agile method focused on engineering best practices.</p>
+  </div>
+  <div class="grid">
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-xp">❤️</div>
+          <div>
+            <div class="card-title">XP Core Values</div>
+            <span class="pill pill-xp">XP</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="def-grid">
+          <div class="def-row"><span class="def-term">Simplicity</span><span class="def-val">Reduce complexity & waste. "Find the simplest thing that could possibly work."</span></div>
+          <div class="def-row"><span class="def-term">Communication</span><span class="def-val">Team knows what's expected; daily standup is key component</span></div>
+          <div class="def-row"><span class="def-term">Feedback</span><span class="def-val">Get impressions of correctness early; failing fast allows faster improvement</span></div>
+          <div class="def-row"><span class="def-term">Courage</span><span class="def-val">Allow work to be entirely visible to others</span></div>
+          <div class="def-row"><span class="def-term">Respect</span><span class="def-val">Everyone is accountable; recognize different work styles</span></div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📝 Mnemonic</div>
+          <p><strong>S-C-F-C-R</strong> → Simplicity, Communication, Feedback, Courage, Respect</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-xp">👥</div>
+          <div>
+            <div class="card-title">XP Roles</div>
+            <span class="pill pill-xp">XP</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="def-grid">
+          <div class="def-row"><span class="def-term">Coach</span><span class="def-val">Mentor & facilitator; guides the process, helps team stay on track (= ScrumMaster)</span></div>
+          <div class="def-row"><span class="def-term">Customer</span><span class="def-val">Business representative providing requirements & priorities (= Product Owner)</span></div>
+          <div class="def-row"><span class="def-term">Programmers</span><span class="def-val">Developers who build the product and write the code</span></div>
+          <div class="def-row"><span class="def-term">Testers</span><span class="def-val">Help customer define and write acceptance tests for user stories</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-xp">🎮</div>
+          <div>
+            <div class="card-title">XP Planning Practices</div>
+            <span class="pill pill-xp">XP</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="def-grid">
+          <div class="def-row">
+            <span class="def-term">Release Planning</span>
+            <span class="def-val">Customer outlines functionality; developers estimate difficulty; push new functionality to production users</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">Iteration Planning</span>
+            <span class="def-val">Short development cycles within a release (= Sprints). Conducted at start of every iteration. Customer explains desired functionality; team breaks into tasks.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-xp">🧪</div>
+          <div>
+            <div class="card-title">XP Engineering Practices</div>
+            <span class="pill pill-xp">XP</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="def-grid">
+          <div class="def-row"><span class="def-term">TDD</span><span class="def-val">Write tests <em>before</em> writing code. Code that passes test = correct code.</span></div>
+          <div class="def-row"><span class="def-term">Pair Programming</span><span class="def-val">Two devs, one keyboard. Real-time code review; spreads knowledge through team.</span></div>
+          <div class="def-row"><span class="def-term">Continuous Integration</span><span class="def-val">Merge and test frequently. Brings problems to surface before more code is built on faulty designs.</span></div>
+          <div class="def-row"><span class="def-term">Collective Ownership</span><span class="def-val">Any pair can improve any code. Higher quality, less risk if someone leaves.</span></div>
+          <div class="def-row"><span class="def-term">Refactoring</span><span class="def-val">Remove redundancy, eliminate unused functionality, rejuvenate obsolete designs. Saves time, increases quality.</span></div>
+          <div class="def-row"><span class="def-term">Simple Design</span><span class="def-val">Code is testable, browsable, understandable. Do simplest thing that works. Self-organizing teams produce best designs.</span></div>
+          <div class="def-row"><span class="def-term">Small Releases</span><span class="def-val">Frequent small releases; demonstrate progress; maintain quality via rigorous testing.</span></div>
+          <div class="def-row"><span class="def-term">Customer Tests</span><span class="def-val">Customer describes tests; team builds automated tests to prove software works.</span></div>
+          <div class="def-row"><span class="def-term">Sustainable Pace</span><span class="def-val">Repeated overtime is unsustainable. Steady pace optimizes long-term value delivery.</span></div>
+          <div class="def-row"><span class="def-term">Metaphor</span><span class="def-val">Use comparisons that all stakeholders understand to explain how the system works.</span></div>
+          <div class="def-row"><span class="def-term">Code Standards</span><span class="def-val">Consistent coding standard — code looks as if written by a single knowledgeable programmer.</span></div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip</div>
+          <p>TDD writes tests FIRST, then code. This is opposite to traditional development. If code initially fails the test — that's expected and correct behavior.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== LEAN & KANBAN ===================== -->
+<section class="pane" id="pane-lean">
+  <div class="section-header">
+    <h2>♻️ Lean & Kanban</h2>
+    <p>Lean software development principles and the Kanban flow system.</p>
+  </div>
+  <div class="grid">
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-lean">🏭</div>
+          <div>
+            <div class="card-title">Lean 7 Principles</div>
+            <span class="pill pill-lean">Lean</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="def-grid">
+          <div class="def-row"><span class="def-term">Eliminate Waste</span><span class="def-val">Minimize partially done work, delays, handoffs, unnecessary features</span></div>
+          <div class="def-row"><span class="def-term">Empower the Team</span><span class="def-val">Respect team's superior technical knowledge; avoid micro-management</span></div>
+          <div class="def-row"><span class="def-term">Deliver Fast</span><span class="def-val">Quickly deliver valuable software and iterate through designs</span></div>
+          <div class="def-row"><span class="def-term">Optimize the Whole</span><span class="def-val">See the system as more than the sum of its parts</span></div>
+          <div class="def-row"><span class="def-term">Build Quality In</span><span class="def-val">Continuously assure quality throughout development</span></div>
+          <div class="def-row"><span class="def-term">Defer Decisions</span><span class="def-val">Commit as late as possible — "last responsible moment"</span></div>
+          <div class="def-row"><span class="def-term">Amplify Learning</span><span class="def-val">Facilitate communication early/often; get feedback ASAP; build on what's learned</span></div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📝 Mnemonic</div>
+          <p>Lean came from <strong>Toyota's manufacturing system</strong>. Principles include visual management tools, customer-defined value, and continuous improvement.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-lean">🗑️</div>
+          <div>
+            <div class="card-title">7 Wastes of Lean</div>
+            <span class="pill pill-lean">Lean</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <ol>
+          <li>Partially done work</li>
+          <li>Extra Processes</li>
+          <li>Extra Features</li>
+          <li>Task Switching</li>
+          <li>Waiting</li>
+          <li>Motion</li>
+          <li>Defects</li>
+        </ol>
+        <div class="tip">
+          <div class="tip-label">📝 Mnemonic</div>
+          <p><strong>PEPTW MD</strong> → Partially done, Extra processes, Extra features, Task switching, Waiting, Motion, Defects</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-lean">📋</div>
+          <div>
+            <div class="card-title">Kanban — 5 Core Principles</div>
+            <span class="pill pill-lean">Kanban</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">"Kanban" is Japanese for "signboard." Derived from Toyota's lean production system.</p>
+        <div class="def-grid">
+          <div class="def-row"><span class="def-term">Visualize Workflow</span><span class="def-val">Software is intangible — make it visible (Kanban board)</span></div>
+          <div class="def-row"><span class="def-term">Limit WIP</span><span class="def-val">Low WIP = increased visibility of issues and bottlenecks</span></div>
+          <div class="def-row"><span class="def-term">Manage Flow</span><span class="def-val">Track flow through system; identify issues; measure changes</span></div>
+          <div class="def-row"><span class="def-term">Explicit Policies</span><span class="def-val">Clearly explain how things work for open improvement discussions</span></div>
+          <div class="def-row"><span class="def-term">Improve Collaboration</span><span class="def-val">Collectively own and improve processes through measurement and experimentation</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-lean">🚦</div>
+          <div>
+            <div class="card-title">Kanban Board & WIP Limits</div>
+            <span class="pill pill-lean">Kanban</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <p style="margin-bottom:10px;">An <strong>"information radiator"</strong> — ensures efficient diffusion of information. Typical columns:</p>
+        <div style="display:flex; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+          <div style="background:var(--surface2); border:1px solid var(--border); border-radius:6px; padding:8px 12px; text-align:center; flex:1; min-width:70px;">
+            <div style="font-size:11px; font-weight:700; color:var(--text-muted); margin-bottom:4px;">ITEMS</div>
+          </div>
+          <div style="background:var(--surface2); border:1px solid var(--border); border-radius:6px; padding:8px 12px; text-align:center; flex:1; min-width:70px;">
+            <div style="font-size:11px; font-weight:700; color:var(--cat-lean); margin-bottom:4px;">IN PROGRESS</div>
+            <div style="font-size:10px; color:var(--text-muted);">6 card limit</div>
+          </div>
+          <div style="background:var(--surface2); border:1px solid var(--border); border-radius:6px; padding:8px 12px; text-align:center; flex:1; min-width:70px;">
+            <div style="font-size:11px; font-weight:700; color:var(--cat-xp); margin-bottom:4px;">TESTING</div>
+            <div style="font-size:10px; color:var(--text-muted);">4 card limit</div>
+          </div>
+          <div style="background:var(--surface2); border:1px solid var(--border); border-radius:6px; padding:8px 12px; text-align:center; flex:1; min-width:70px;">
+            <div style="font-size:11px; font-weight:700; color:var(--cat-planning); margin-bottom:4px;">DONE</div>
+          </div>
+        </div>
+        <ul>
+          <li>WIP = work started but not completed → money spent with no return yet</li>
+          <li>Excessive WIP hides bottlenecks and masks efficiency issues</li>
+          <li>Represents risk in the form of potential rework</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-lean">📈</div>
+          <div>
+            <div class="card-title">Cumulative Flow Diagrams (CFD)</div>
+            <span class="pill pill-lean">Kanban</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Stack graphs showing how work progresses through stages</li>
+          <li>Stages tracked: Ready → Dev → Test → Deployed</li>
+          <li>Widening area in a lane = bottleneck at that activity</li>
+          <li>Theory of Constraints: identify and address the bottleneck</li>
+        </ul>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip</div>
+          <p>A widening band on a CFD indicates work is <strong>accumulating</strong> at that stage — it's a bottleneck. The solution is to address that specific constraint.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== PLANNING ===================== -->
+<section class="pane" id="pane-planning">
+  <div class="section-header">
+    <h2>📅 Adaptive Planning</h2>
+    <p>Estimation, user stories, iteration types, and release planning.</p>
+  </div>
+  <div class="grid">
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-planning">📝</div>
+          <div>
+            <div class="card-title">User Stories</div>
+            <span class="pill pill-planning">Planning</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <p style="margin-bottom:8px;">Business functionality involving 1–3 days of work. Acts as agreement between customers and development team.</p>
+        <div class="formula">
+          <span class="formula-label">Format</span>
+          As a &lt;user type&gt; I want to &lt;goal&gt; so that &lt;value&gt;
+        </div>
+        <p style="margin-top:10px; font-size:12px; color:var(--text-muted);">Example: "As a payroll clerk, I want to view a payroll tax report, so that I can pay them on time."</p>
+        <div class="tip">
+          <div class="tip-label">📝 Mnemonic — 3 C's</div>
+          <p><strong>Card</strong> (written on index card) → <strong>Conversation</strong> (no details, used to discuss) → <strong>Confirmation</strong> (acceptance criteria)</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-planning">💎</div>
+          <div>
+            <div class="card-title">INVEST Criteria for User Stories</div>
+            <span class="pill pill-planning">Planning</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="mnemonic-grid">
+          <div class="mnemonic-row">
+            <div class="mnemonic-letter">I</div>
+            <div><div class="mnemonic-word">Independent</div><div class="mnemonic-def">Can be reprioritized independently</div></div>
+          </div>
+          <div class="mnemonic-row">
+            <div class="mnemonic-letter">N</div>
+            <div><div class="mnemonic-word">Negotiable</div><div class="mnemonic-def">Allows trade-offs based on cost & function</div></div>
+          </div>
+          <div class="mnemonic-row">
+            <div class="mnemonic-letter">V</div>
+            <div><div class="mnemonic-word">Valuable</div><div class="mnemonic-def">Clearly states business value</div></div>
+          </div>
+          <div class="mnemonic-row">
+            <div class="mnemonic-letter">E</div>
+            <div><div class="mnemonic-word">Estimatable</div><div class="mnemonic-def">Team can estimate how long to complete</div></div>
+          </div>
+          <div class="mnemonic-row">
+            <div class="mnemonic-letter">S</div>
+            <div><div class="mnemonic-word">Small</div><div class="mnemonic-def">Between 4–40 hours of work</div></div>
+          </div>
+          <div class="mnemonic-row">
+            <div class="mnemonic-letter">T</div>
+            <div><div class="mnemonic-word">Testable</div><div class="mnemonic-def">Can be tested to ensure acceptance</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-planning">🃏</div>
+          <div>
+            <div class="card-title">Estimation Techniques</div>
+            <span class="pill pill-planning">Planning</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="def-grid">
+          <div class="def-row"><span class="def-term">Story Points</span><span class="def-val">Relative sizing; all-inclusive (complexity + effort + risk). Use Fibonacci: 1, 2, 3, 5, 8, 13, 21</span></div>
+          <div class="def-row"><span class="def-term">Planning Poker</span><span class="def-val">Wideband Delphi variant. Cards with Fibonacci; fast and collaborative. Prevents groupthink & HIPPO effect.</span></div>
+          <div class="def-row"><span class="def-term">Affinity Estimating</span><span class="def-val">Group estimates into categories or collections</span></div>
+          <div class="def-row"><span class="def-term">T-Shirt Sizing</span><span class="def-val">Place stories in t-shirt sizes (XS, S, M, L, XL)</span></div>
+          <div class="def-row"><span class="def-term">Wideband Delphi</span><span class="def-val">Anonymous panel of experts. Prevents bandwagon effect, HIPPO decisions, and groupthink</span></div>
+          <div class="def-row"><span class="def-term">Ideal Time</span><span class="def-val">Time to complete assuming zero interruptions or unplanned problems</span></div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip</div>
+          <p>HIPPO = <strong>H</strong>ighest-<strong>P</strong>aid <strong>P</strong>erson's <strong>O</strong>pinion. Planning Poker and Wideband Delphi prevent this by using anonymous estimation.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-planning">⚡</div>
+          <div>
+            <div class="card-title">Velocity & Cycle Time Formulas</div>
+            <span class="pill pill-planning">Planning</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="formula">
+          <span class="formula-label">Iterations</span>
+          Total Points ÷ Avg Velocity = Iterations Remaining
+        </div>
+        <p style="font-size:12px; color:var(--text-muted); margin: 6px 0 12px;">Example: 250 points ÷ 18 points/iteration ≈ 14 more iterations</p>
+        <div class="formula">
+          <span class="formula-label">Cycle Time</span>
+          WIP ÷ Throughput = Cycle Time
+        </div>
+        <p style="font-size:12px; color:var(--text-muted); margin: 6px 0 12px;">Example: 60 pts ÷ 5 pts/day = 12 days</p>
+        <div class="formula">
+          <span class="formula-label">Risk EMV</span>
+          Impact ($) × Probability (%) = EMV
+        </div>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip</div>
+          <p>Throughput = amount of work completed in a given time period. Long cycle times lead to increased WIP, which hides bottlenecks.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-planning">🗓️</div>
+          <div>
+            <div class="card-title">Types of Iterations</div>
+            <span class="pill pill-planning">Planning</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="def-grid">
+          <div class="def-row"><span class="def-term">Iteration 0</span><span class="def-val">Sets the stage for development — doesn't build anything; environment setup, architecture decisions</span></div>
+          <div class="def-row"><span class="def-term">Dev Iterations</span><span class="def-val">Build the product increment — the main sprints</span></div>
+          <div class="def-row"><span class="def-term">Iteration H</span><span class="def-val">Hardening sprint at the end — code cleanup, documentation, release preparation</span></div>
+          <div class="def-row"><span class="def-term">Spikes</span><span class="def-val">Architectural spike: proof of concept. Risk-based spike: investigate to reduce/eliminate risk</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-planning">🎯</div>
+          <div>
+            <div class="card-title">Prioritization Techniques</div>
+            <span class="pill pill-planning">Planning</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="def-grid">
+          <div class="def-row"><span class="def-term">MoSCoW</span><span class="def-val"><strong>M</strong>ust have · <strong>S</strong>hould have · <strong>C</strong>ould have · <strong>W</strong>ould like (not this time)</span></div>
+          <div class="def-row"><span class="def-term">Dot Voting</span><span class="def-val">Each person gets a set number of dots to distribute to requirements</span></div>
+          <div class="def-row"><span class="def-term">Monopoly Money</span><span class="def-val">Each person gets equal funds to distribute to features they value most</span></div>
+          <div class="def-row"><span class="def-term">100-Point Method</span><span class="def-val">Each person gets 100 points to distribute to individual requirements</span></div>
+          <div class="def-row"><span class="def-term">Kano Analysis</span><span class="def-val">Delighters/Exciters · Satisfiers · Dissatisfiers · Indifferent</span></div>
+          <div class="def-row"><span class="def-term">Simple Scheme</span><span class="def-val">Priority 1, 2, 3 — can be problematic when too many become Priority 1</span></div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip</div>
+          <p>MoSCoW is the most commonly tested prioritization technique. "W" stands for "Would like but <em>not this time</em>" — it doesn't mean never.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-planning">⏰</div>
+          <div>
+            <div class="card-title">Timeboxing</div>
+            <span class="pill pill-planning">Planning</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <p style="margin-bottom:10px;">Fixed-duration periods where activities are undertaken. Unfinished work moves to next timebox.</p>
+        <div class="def-grid">
+          <div class="def-row"><span class="def-term">Daily Standup</span><span class="def-val">15 minutes</span></div>
+          <div class="def-row"><span class="def-term">Retrospectives</span><span class="def-val">2 hours</span></div>
+          <div class="def-row"><span class="def-term">Sprints</span><span class="def-val">1–4 weeks</span></div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip — Parkinson's Law</div>
+          <p>"Work tends to <strong>expand to fill the time given</strong>." Timeboxing prevents this by imposing hard limits.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-planning">🌀</div>
+          <div>
+            <div class="card-title">Progressive Elaboration</div>
+            <span class="pill pill-planning">Planning</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Adding more detail as information emerges</li>
+          <li>Applies to: plans, estimates, designs, test scenarios</li>
+          <li><strong>Rolling wave planning:</strong> planning at multiple points in time as data becomes available</li>
+          <li>Keep requirements "coarse" then progressively refine them</li>
+          <li>Delays decisions until the <strong>"last responsible moment"</strong></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== TEAM ===================== -->
+<section class="pane" id="pane-team">
+  <div class="section-header">
+    <h2>👥 Team Performance & Leadership</h2>
+    <p>Team development models, leadership styles, and stakeholder engagement.</p>
+  </div>
+  <div class="grid">
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-team">🪜</div>
+          <div>
+            <div class="card-title">Tuckman's 5 Stages of Team Development</div>
+            <span class="pill pill-team">Team</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="stage-list">
+          <div class="stage"><div class="stage-num">1</div><div class="stage-content"><div class="stage-name">Forming <span class="stage-tag">→ Directing</span></div><div class="stage-desc">Team comes together, gets to know each other. Little conflict or communication.</div></div></div>
+          <div class="stage"><div class="stage-num">2</div><div class="stage-content"><div class="stage-name">Storming <span class="stage-tag">→ Coaching</span></div><div class="stage-desc">Team members start having conflicts. Most conflicts take place here.</div></div></div>
+          <div class="stage"><div class="stage-num">3</div><div class="stage-content"><div class="stage-name">Norming <span class="stage-tag">→ Supporting</span></div><div class="stage-desc">Team begins to agree on best methods. Coming to consensus.</div></div></div>
+          <div class="stage"><div class="stage-num">4</div><div class="stage-content"><div class="stage-name">Performing <span class="stage-tag">→ Delegating</span></div><div class="stage-desc">Team is performing well, working without conflict.</div></div></div>
+          <div class="stage"><div class="stage-num">5</div><div class="stage-content"><div class="stage-name">Adjourning</div><div class="stage-desc">Project completed and team is reassigned.</div></div></div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip — Adaptive Leadership</div>
+          <p>Leadership style adapts to team stage: <strong>Form→Direct, Storm→Coach, Norm→Support, Perform→Delegate</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-team">🧑‍💼</div>
+          <div>
+            <div class="card-title">Servant Leadership</div>
+            <span class="pill pill-team">Leadership</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <p style="margin-bottom:8px;">Leader provides what the team needs to succeed:</p>
+        <ol>
+          <li>Shield team from interruptions</li>
+          <li>Remove impediments to progress</li>
+          <li>(Re)Communicate project vision</li>
+          <li>Carry food and water (ensure team needs are met)</li>
+        </ol>
+        <div class="def-grid" style="margin-top:12px;">
+          <div class="def-row"><span class="def-term">Management</span><span class="def-val">Mechanical focus → Task/things, Control, Command</span></div>
+          <div class="def-row"><span class="def-term">Leadership</span><span class="def-val">Humanistic focus → People, Empowerment, Communication</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-team">📊</div>
+          <div>
+            <div class="card-title">COCOMO — People vs. Processes</div>
+            <span class="pill pill-team">Team</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <p style="margin-bottom:8px;">Constructive Cost Model — correlation between project variables and final cost.</p>
+        <div class="def-grid">
+          <div class="def-row"><span class="def-term">People factor</span><span class="def-val" style="color:var(--cat-team); font-weight:700;">Score: 33</span></div>
+          <div class="def-row"><span class="def-term">Product factor</span><span class="def-val">Score: 10</span></div>
+          <div class="def-row"><span class="def-term">Computer</span><span class="def-val">Score: 4</span></div>
+          <div class="def-row"><span class="def-term">Tools & Process</span><span class="def-val">Score: 3</span></div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip</div>
+          <p><strong>People</strong> is 11× more significant than tools and processes (33 vs 3). This validates the manifesto's "Individuals & Interactions over Processes & Tools."</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-team">🎭</div>
+          <div>
+            <div class="card-title">Conflict Resolution Levels</div>
+            <span class="pill pill-team">Team</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="stage-list">
+          <div class="stage"><div class="stage-num">1</div><div class="stage-content"><div class="stage-name">Problem to Solve</div><div class="stage-desc">Sharing information; collaborative</div></div></div>
+          <div class="stage"><div class="stage-num">2</div><div class="stage-content"><div class="stage-name">Disagreement</div><div class="stage-desc">Personal protection begins</div></div></div>
+          <div class="stage"><div class="stage-num">3</div><div class="stage-content"><div class="stage-name">Contest</div><div class="stage-desc">Must win mentality</div></div></div>
+          <div class="stage"><div class="stage-num">4</div><div class="stage-content"><div class="stage-name">Crusade</div><div class="stage-desc">Protecting one's group</div></div></div>
+          <div class="stage"><div class="stage-num">5</div><div class="stage-content"><div class="stage-name">World War</div><div class="stage-desc">Must destroy the other side</div></div></div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip</div>
+          <p>Some conflict is healthy (Level 1–2). Agile PMs must use interpersonal skills to keep conflicts from escalating past Level 2.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-team">👂</div>
+          <div>
+            <div class="card-title">Active Listening Levels</div>
+            <span class="pill pill-team">Team</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="def-grid">
+          <div class="def-row"><span class="def-term">Level 1 – Internal</span><span class="def-val">How is what I'm hearing going to affect me?</span></div>
+          <div class="def-row"><span class="def-term">Level 2 – Focused</span><span class="def-val">Put ourselves in the mind of the speaker</span></div>
+          <div class="def-row"><span class="def-term">Level 3 – Global</span><span class="def-val">Builds on Level 2 with body language and full awareness</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-team">🌱</div>
+          <div>
+            <div class="card-title">Skill Development Models</div>
+            <span class="pill pill-team">Team</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="def-grid">
+          <div class="def-row">
+            <span class="def-term">Shu-Ha-Ri</span>
+            <span class="def-val"><strong>Shu</strong> = Obey (follow rules) · <strong>Ha</strong> = Move away (understand principles) · <strong>Ri</strong> = Find individual paths (transcend)</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">Dreyfus Model</span>
+            <span class="def-val">Novice → Advanced Beginner → Competent → Proficient → <strong>Expert</strong></span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">Generalizing Specialists</span>
+            <span class="def-val">Team members skilled in more than one area; reduces bottlenecks; increases flexibility</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-team">📡</div>
+          <div>
+            <div class="card-title">Stakeholder Engagement Methods</div>
+            <span class="pill pill-team">Stakeholders</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Get the right stakeholders involved</li>
+          <li>Cement stakeholder involvement early</li>
+          <li>Actively manage stakeholder interest</li>
+          <li>Frequently discuss what "done" looks like</li>
+          <li>Show progress and capabilities regularly</li>
+          <li>Candidly discuss estimates and projections</li>
+        </ul>
+        <div class="separator" style="margin:12px 0;"></div>
+        <p style="font-size:12px; font-weight:600; margin-bottom:8px;">Shared Vision Methods:</p>
+        <ul>
+          <li>Agile Charter (W5H approach)</li>
+          <li>Definition of "Done"</li>
+          <li>Agile Modeling (use case diagrams, data models, wireframes)</li>
+          <li>Personas — quick guides to stakeholder interests</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-team">🎯</div>
+          <div>
+            <div class="card-title">Collaboration Games</div>
+            <span class="pill pill-team">Stakeholders</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="def-grid">
+          <div class="def-row">
+            <span class="def-term">Remember the Future</span>
+            <span class="def-val">Ask stakeholders to imagine successful release and look back. Gets a better understanding of how they define success.</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">Prune the Product Tree</span>
+            <span class="def-val">Draw tree; stakeholders add features on sticky notes. Trunk = core features; higher branches = features depending on other features.</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">Speedboat (Sailboat)</span>
+            <span class="def-val">Draw boat moving toward goals. Sticky notes show what moves it (wind) and what stops it (anchors). Identifies threats & opportunities.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-team">📏</div>
+          <div>
+            <div class="card-title">Burn Charts & Velocity</div>
+            <span class="pill pill-team">Tracking</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="def-grid">
+          <div class="def-row"><span class="def-term">Burndown Chart</span><span class="def-val">Shows work that <strong>remains to be done</strong>. Line goes downward toward zero.</span></div>
+          <div class="def-row"><span class="def-term">Burnup Chart</span><span class="def-val">Shows work that <strong>has been done</strong>. Line goes upward toward total scope.</span></div>
+          <div class="def-row"><span class="def-term">Velocity Chart</span><span class="def-val">Shows how many story points the team completes per iteration. Used to predict future capacity.</span></div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip</div>
+          <p><strong>Down</strong> = remaining work (burndown). <strong>Up</strong> = work done (burnup). Velocity tracks team capacity across iterations.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== VALUE & RISK ===================== -->
+<section class="pane" id="pane-value">
+  <div class="section-header">
+    <h2>💎 Value Delivery & Risk</h2>
+    <p>Value-driven delivery, financial metrics, risk management, and contracting.</p>
+  </div>
+  <div class="grid">
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-value">💰</div>
+          <div>
+            <div class="card-title">Financial Value Metrics</div>
+            <span class="pill pill-value">Value</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="def-grid">
+          <div class="def-row"><span class="def-term">ROI</span><span class="def-val">Return on Investment — ratio of benefits to money invested (usually a %)</span></div>
+          <div class="def-row"><span class="def-term">IRR</span><span class="def-val">Internal Rate of Return — interest rate needed in today's money to receive future amount</span></div>
+          <div class="def-row"><span class="def-term">NPV/PV</span><span class="def-val">Net Present Value — value of future money in today's terms</span></div>
+          <div class="def-row"><span class="def-term">EVM</span><span class="def-val">Earned Value Management — formulas that monitor the value of the project as it progresses</span></div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip</div>
+          <p>Higher NPV = better project. Positive NPV means the investment is profitable in today's terms. IRR > cost of capital = good investment.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-value">📊</div>
+          <div>
+            <div class="card-title">KPIs on Agile Projects</div>
+            <span class="pill pill-value">Value</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li><strong>Rate of progress</strong> — how many points completed</li>
+          <li><strong>Remaining work</strong> — how much is left in the backlog</li>
+          <li><strong>Likely completion date</strong></li>
+          <li><strong>Likely cost remaining</strong></li>
+        </ul>
+        <div class="separator" style="margin:12px 0;"></div>
+        <div class="def-grid">
+          <div class="def-row"><span class="def-term">Lagging Metrics</span><span class="def-val">Information about something that has <strong>already happened</strong></span></div>
+          <div class="def-row"><span class="def-term">Leading Metrics</span><span class="def-val">Information about what <strong>is or is about to occur</strong></span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-value">⚠️</div>
+          <div>
+            <div class="card-title">Risk Management</div>
+            <span class="pill pill-value">Risk</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <p style="margin-bottom:8px;">Risk is considered <strong>anti-value</strong> — it has potential to remove, erode, or reduce value.</p>
+        <div class="formula">
+          <span class="formula-label">Risk EMV</span>
+          Impact ($) × Probability (%) = Expected Monetary Value
+        </div>
+        <div class="formula" style="margin-top:8px;">
+          <span class="formula-label">Severity</span>
+          Risk Probability × Risk Impact (scale 1–5)
+        </div>
+        <div class="separator" style="margin:12px 0;"></div>
+        <div class="def-grid">
+          <div class="def-row"><span class="def-term">Risk-Adjusted Backlog</span><span class="def-val">Adjusting the backlog after risk response planning</span></div>
+          <div class="def-row"><span class="def-term">Risk Burndown Chart</span><span class="def-val">Tracks how risk is being eliminated over time during the project</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-value">📋</div>
+          <div>
+            <div class="card-title">Agile Contracting</div>
+            <span class="pill pill-value">Value</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <p style="margin-bottom:8px;">Agile fixes <strong>resources and time (cost)</strong> and varies <strong>functionality</strong>.</p>
+        <div class="def-grid">
+          <div class="def-row">
+            <span class="def-term">Graduated Fixed Price</span>
+            <span class="def-val">Buyer/Seller share risks and rewards. Different hourly rates: finish early / on time / late</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">Fixed Price Packages</span>
+            <span class="def-val">Mitigate risks of under/over estimating with fixed work packages</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">Money for Nothing</span>
+            <span class="def-val">Customer can cancel contract but compensate for lost opportunity</span>
+          </div>
+          <div class="def-row">
+            <span class="def-term">Change for Free</span>
+            <span class="def-val">Customer can change requirements as long as scope remains constant</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-value">📦</div>
+          <div>
+            <div class="card-title">Minimal Viable Product (MVP)</div>
+            <span class="pill pill-value">Value</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Set of functionality complete enough to be useful</li>
+          <li>Small enough not to be an entire project</li>
+          <li>Usually a module in a software system</li>
+          <li>Leads to more opportunity for <strong>incremental funding</strong></li>
+          <li>Enables faster feedback and course correction</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-value">💳</div>
+          <div>
+            <div class="card-title">Technical Debt</div>
+            <span class="pill pill-value">Risk</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Backlog of work caused by <strong>not doing regular cleanup</strong></li>
+          <li>If left unaddressed → increases cost of development</li>
+          <li>Makes it harder to implement future changes</li>
+          <li><strong>Refactoring</strong> is the solution</li>
+        </ul>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip</div>
+          <p>Technical debt is like financial debt — interest accumulates. The longer you ignore it, the more expensive it becomes to fix.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== IMPROVEMENT ===================== -->
+<section class="pane" id="pane-improvement">
+  <div class="section-header">
+    <h2>📈 Continuous Improvement</h2>
+    <p>Retrospectives, Kaizen, process analysis, and problem-solving strategies.</p>
+  </div>
+  <div class="grid">
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-improvement">🔄</div>
+          <div>
+            <div class="card-title">Kaizen & PDCA Cycle</div>
+            <span class="pill pill-improvement">Improvement</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <p style="margin-bottom:8px;">Kaizen = Japanese word for <strong>continuous improvement</strong>. Focus on small, incremental improvements.</p>
+        <div style="display:flex; gap:8px; margin:12px 0; flex-wrap:wrap;">
+          <div style="background:var(--cat-improvement-bg); border-radius:8px; padding:10px 14px; text-align:center; flex:1; min-width:70px;">
+            <div style="font-size:18px; margin-bottom:4px;">🟦</div>
+            <div style="font-weight:700; font-size:12px; color:var(--cat-improvement);">PLAN</div>
+          </div>
+          <div style="background:var(--cat-planning-bg); border-radius:8px; padding:10px 14px; text-align:center; flex:1; min-width:70px;">
+            <div style="font-size:18px; margin-bottom:4px;">🟩</div>
+            <div style="font-weight:700; font-size:12px; color:var(--cat-planning);">DO</div>
+          </div>
+          <div style="background:var(--cat-lean-bg); border-radius:8px; padding:10px 14px; text-align:center; flex:1; min-width:70px;">
+            <div style="font-size:18px; margin-bottom:4px;">🟨</div>
+            <div style="font-weight:700; font-size:12px; color:var(--cat-lean);">CHECK</div>
+          </div>
+          <div style="background:var(--cat-team-bg); border-radius:8px; padding:10px 14px; text-align:center; flex:1; min-width:70px;">
+            <div style="font-size:18px; margin-bottom:4px;">🟥</div>
+            <div style="font-weight:700; font-size:12px; color:var(--cat-team);">ACT</div>
+          </div>
+        </div>
+        <p style="font-size:12px; color:var(--text-muted);">PDCA Cycle by Edwards Deming. Maps to Agile's: Plan → Develop → Evaluate → Learn loop.</p>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-improvement">🪞</div>
+          <div>
+            <div class="card-title">Retrospective — 5 Stages</div>
+            <span class="pill pill-improvement">Improvement</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <p style="margin-bottom:8px;">Special meeting after each iteration. ~<strong>2 hours total</strong>. Inspect and improve methods and teamwork.</p>
+        <div class="stage-list">
+          <div class="stage"><div class="stage-num">1</div><div class="stage-content"><div class="stage-name">Set the Stage <em style="font-size:11px; color:var(--text-muted);">6 min</em></div><div class="stage-desc">Help people focus; encourage participation; outline approach. Activities: Check-In, ESVP (Explorer/Shopper/Vacationer/Prisoner)</div></div></div>
+          <div class="stage"><div class="stage-num">2</div><div class="stage-content"><div class="stage-name">Gather Data <em style="font-size:11px; color:var(--text-muted);">40 min</em></div><div class="stage-desc">Create picture of what happened. Timeline, Triple Nickels (5 groups × 5 min × 5 ideas), Mad/Sad/Glad</div></div></div>
+          <div class="stage"><div class="stage-num">3</div><div class="stage-content"><div class="stage-name">Generate Insights <em style="font-size:11px; color:var(--text-muted);">25 min</em></div><div class="stage-desc">Analyze data. Brainstorming, Five Whys, Fishbone Analysis, Dot Voting</div></div></div>
+          <div class="stage"><div class="stage-num">4</div><div class="stage-content"><div class="stage-name">Decide What to Do <em style="font-size:11px; color:var(--text-muted);">20 min</em></div><div class="stage-desc">How to improve next iteration. Short Subjects, SMART Goals</div></div></div>
+          <div class="stage"><div class="stage-num">5</div><div class="stage-content"><div class="stage-name">Close Retrospective <em style="font-size:11px; color:var(--text-muted);">20 min</em></div><div class="stage-desc">Reflect on retro itself. Plus/Delta: do more of / do less of</div></div></div>
+        </div>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip</div>
+          <p><strong>SMART Goals:</strong> Specific, Measurable, Attainable, Relevant, Timely. Set these in Stage 4 of the retrospective.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-improvement">🌊</div>
+          <div>
+            <div class="card-title">Value Stream Mapping</div>
+            <span class="pill pill-improvement">Improvement</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <p style="margin-bottom:8px;">Optimize the flow of information or materials to complete a process. Reduce waste and unnecessary work.</p>
+        <ol>
+          <li>Identify the product or service</li>
+          <li>Create a current-state value stream map</li>
+          <li>Review to find waste</li>
+          <li>Create a future-state map with desired improvements</li>
+          <li>Develop a roadmap to implement fixes</li>
+          <li>Plan to revisit it again (continuous loop)</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-improvement">🦴</div>
+          <div>
+            <div class="card-title">Fishbone (Ishikawa) Analysis</div>
+            <span class="pill pill-improvement">Improvement</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Root cause analysis tool</li>
+          <li>Used in Retrospective Stage 3 (Generate Insights)</li>
+          <li>Diagram shows potential causes of a problem branching from main "spine"</li>
+          <li>Categories typically: People, Process, Equipment, Environment, Materials, Methods</li>
+        </ul>
+        <div class="tip">
+          <div class="tip-label">📝 Paired with</div>
+          <p><strong>Five Whys</strong>: Ask "why?" five times to drill down to the root cause of any problem. Both tools support generating insights in retrospectives.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-improvement">💀</div>
+          <div>
+            <div class="card-title">Pre-Mortems</div>
+            <span class="pill pill-improvement">Improvement</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <p style="margin-bottom:8px;">Team meeting to identify possible failures <strong>before they happen</strong>.</p>
+        <ol>
+          <li>Think about what the failures might be</li>
+          <li>Create a list of reasons that can cause those failures</li>
+          <li>Review the project plan to determine what can reduce or remove the risks</li>
+        </ol>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip</div>
+          <p>Pre-Mortem = proactive risk identification. Retrospective = reactive lessons learned. Don't confuse the two.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-improvement">🔧</div>
+          <div>
+            <div class="card-title">Process Tailoring</div>
+            <span class="pill pill-improvement">Improvement</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Amend methodology to better fit the project environment</li>
+          <li>Change things for good reason — not just for the sake of change</li>
+          <li>Develop a <strong>hybrid</strong> approach if needed</li>
+          <li>Process analysis: review and diagnose issues; look for tailoring possibilities</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-improvement">🏆</div>
+          <div>
+            <div class="card-title">Lead Time vs. Cycle Time</div>
+            <span class="pill pill-improvement">Improvement</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <div class="def-grid">
+          <div class="def-row"><span class="def-term">Lead Time</span><span class="def-val">How long something takes to go through the <strong>entire</strong> process end-to-end</span></div>
+          <div class="def-row"><span class="def-term">Cycle Time</span><span class="def-val">How long something takes to go through a <strong>part</strong> of the process. Part of lead time.</span></div>
+        </div>
+        <div class="formula" style="margin-top:12px;">
+          <span class="formula-label">Cycle Time</span>
+          WIP ÷ Throughput
+        </div>
+        <div class="tip">
+          <div class="tip-label">📝 Exam Tip</div>
+          <p>Lead Time ≥ Cycle Time always. Cycle time is a subset of lead time. Reducing WIP directly reduces cycle time.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleCard(this)">
+      <div class="card-header">
+        <div class="card-header-left">
+          <div class="card-icon icon-improvement">🎯</div>
+          <div>
+            <div class="card-title">Team Self-Assessment Criteria</div>
+            <span class="pill pill-improvement">Improvement</span>
+          </div>
+        </div>
+        <div class="card-chevron">▼</div>
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Self-organization</li>
+          <li>Empowered to make decisions</li>
+          <li>Belief in vision and success</li>
+          <li>Committed team</li>
+          <li>Trust each other</li>
+          <li>Constructive disagreement encouraged</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<script>
+  function showTab(tabName) {
+    document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('pane-' + tabName).classList.add('active');
+    document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleCard(card) {
+    const wasOpen = card.classList.contains('open');
+    card.classList.toggle('open', !wasOpen);
+  }
+
+  // Open first card in each pane on load for better first impression
+  document.querySelectorAll('.pane').forEach(pane => {
+    const first = pane.querySelector('.card');
+    if (first) first.classList.add('open');
+  });
+</script>
+</body>
+</html>
