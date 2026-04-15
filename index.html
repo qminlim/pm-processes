@@ -77,14 +77,14 @@ h1 { font-size: 22px; font-weight: 500; margin-bottom: 4px; }
 <script>
 const phases = {
   init: {
-    label:"Initiating",emoji:"🚀",color:"#185FA5",desc:"Formally authorize the project and identify key stakeholders",bg:"#004380",
+    label:"Initiating",emoji:"🚀",color:"#185FA5",desc:"Formally authorize the project and identify key stakeholders",bg:"#F5F5F0",
     processes:[
       {name:"Develop Project Charter",tag:"Integration",tagColor:"#185FA5",tagBg:"#E6F1FB",summary:"Formally authorizes the project, assigns the PM, and outlines high-level objectives, risks, budget, and schedule.",inputs:["Business Documents","Agreements","EEF","OPA"],tools:["Expert Judgment","Data Gathering","Interpersonal & Team Skills","Meetings"],outputs:["Project Charter","Assumption Log"],tip:"The charter is signed by senior management. Once approved, the project is officially launched."},
       {name:"Identify Stakeholders",tag:"Stakeholder",tagColor:"#0F6E56",tagBg:"#E1F5EE",summary:"Identify all people/groups affected by the project, analyze their interests, power, and involvement.",inputs:["Project Charter","Business Documents","PM Plan","Project Docs","Agreements","EEF","OPA"],tools:["Expert Judgment","Data Gathering","Data Analysis","Data Representation","Meetings"],outputs:["Stakeholder Register","Change Requests","PM Plan Updates","Project Doc Updates"],tip:"Tools include Power/Interest Grid, Stakeholder Cube, Salience Model, and Directions of Influence (Upward/Downward/Outward/Sideward)."}
     ]
   },
   plan: {
-    label:"Planning",emoji:"📋",color:"#0F6E56",desc:"Define scope, schedule, cost, quality, resources, risk, procurement, and stakeholder engagement",bg:"#004030",
+    label:"Planning",emoji:"📋",color:"#0F6E56",desc:"Define scope, schedule, cost, quality, resources, risk, procurement, and stakeholder engagement",bg:"#F5F5F0",
     processes:[
       {name:"Develop PM Plan",tag:"Integration",tagColor:"#185FA5",tagBg:"#E6F1FB",summary:"Consolidates all subsidiary plans (14 plans) and 4 baselines (Scope, Schedule, Cost, Performance) into one comprehensive document.",inputs:["Project Charter","Outputs from Other Processes","EEF","OPA"],tools:["Expert Judgment","Data Gathering","Interpersonal & Team Skills","Meetings"],outputs:["Project Management Plan"],tip:"Only changed when a Change Request is approved by the Change Control Board (CCB)."},
       {name:"Plan Scope Management",tag:"Scope",tagColor:"#3C3489",tagBg:"#EEEDFE",summary:"Documents how scope will be defined, validated, and controlled. Prevents gold plating and scope creep.",inputs:["Project Charter","PM Plan","EEF","OPA"],tools:["Expert Judgment","Data Analysis","Meetings"],outputs:["Scope Management Plan","Requirements Management Plan"],tip:"Product Scope = features. Project Scope = work needed to deliver those features."},
@@ -113,7 +113,7 @@ const phases = {
     ]
   },
   exec: {
-    label:"Executing",emoji:"⚙️",color:"#854F0B",desc:"Perform the work defined in the PM plan; manage people, quality, knowledge, and procurement",bg:"#543500",
+    label:"Executing",emoji:"⚙️",color:"#854F0B",desc:"Perform the work defined in the PM plan; manage people, quality, knowledge, and procurement",bg:"#F5F5F0",
     processes:[
       {name:"Direct & Manage Project Work",tag:"Integration",tagColor:"#185FA5",tagBg:"#E6F1FB",summary:"Perform the work, manage people, implement approved changes. Summary of all executing processes.",inputs:["PM Plan","Project Docs","Approved Change Requests","EEF","OPA"],tools:["Expert Judgment","PMIS","Meetings"],outputs:["Deliverables","Work Performance Data","Issue Log","Change Requests","PM Plan Updates","Project Doc Updates","OPA Updates"],tip:"Change Requests include: Corrective Action (fix past errors), Preventive Action (fix future errors), Defect Repair."},
       {name:"Manage Project Knowledge",tag:"Integration",tagColor:"#185FA5",tagBg:"#E6F1FB",summary:"Use existing knowledge and create new knowledge to achieve objectives and contribute to organizational learning.",inputs:["PM Plan","Project Docs","Deliverables","EEF","OPA"],tools:["Expert Judgment","Knowledge Management","Information Management","Interpersonal Skills"],outputs:["Lessons Learned Register","PM Plan Updates","OPA Updates"],tip:"Explicit knowledge = documented (data, records). Tacit knowledge = in people's heads (experience). Gather throughout the project, not just at the end."},
@@ -128,7 +128,7 @@ const phases = {
     ]
   },
   mc: {
-    label:"Monitoring & Controlling",emoji:"👁",color:"#993C1D",desc:"Track, review, and regulate project progress and performance; manage changes",bg:"#711e00",
+    label:"Monitoring & Controlling",emoji:"👁",color:"#993C1D",desc:"Track, review, and regulate project progress and performance; manage changes",bg:"#F5F5F0",
     processes:[
       {name:"Monitor & Control Project Work",tag:"Integration",tagColor:"#185FA5",tagBg:"#E6F1FB",summary:"Track, review, and record progress. Converts Work Performance Information into Work Performance Reports.",inputs:["PM Plan","Project Docs","Work Performance Information","Agreements","EEF","OPA"],tools:["Expert Judgment","Data Analysis","Decision Making","Meetings"],outputs:["Work Performance Reports","Change Requests","PM Plan Updates","Project Doc Updates"],tip:"Data flow: Work Performance Data (raw) → Work Performance Information (analyzed) → Work Performance Reports (decisions)."},
       {name:"Perform Integrated Change Control",tag:"Integration",tagColor:"#185FA5",tagBg:"#E6F1FB",summary:"Review all change requests; approve, defer, or reject changes. Managed by the Change Control Board (CCB).",inputs:["PM Plan","Project Docs","Risk Report","Work Performance Reports","Change Requests","EEF","OPA"],tools:["Expert Judgment","Change Control Tools","Data Analysis","Decision Making","Meetings"],outputs:["Approved Change Requests","PM Plan Updates","Project Doc Updates"],tip:"Change process: Identify need → PM assesses impact → CCB approves/rejects → Update PM Plan → Manage to new plan."},
@@ -145,7 +145,7 @@ const phases = {
     ]
   },
   close: {
-    label:"Closing",emoji:"✓",color:"#3C3489",desc:"Finalize all activities, obtain formal acceptance, archive information, release team",bg:"#090098",
+    label:"Closing",emoji:"✓",color:"#3C3489",desc:"Finalize all activities, obtain formal acceptance, archive information, release team",bg:"#F5F5F0",
     processes:[
       {name:"Close Project or Phase",tag:"Integration",tagColor:"#185FA5",tagBg:"#E6F1FB",summary:"Finalize all activities. Confirm delivery and acceptance, close accounts, reassign personnel, archive information, and transfer deliverables.",inputs:["Project Charter","PM Plan","Project Docs","Accepted Deliverables","Business Docs","Agreements","Procurement Docs","OPA"],tools:["Expert Judgment","Data Analysis","Meetings"],outputs:["Project Doc Updates","Final Product/Service/Result Transition","Final Report","OPA Updates"],tip:"If a project is terminated early, document reasons. Key activities: audit success/failure, capture lessons learned, transition deliverables to operations."}
     ]
