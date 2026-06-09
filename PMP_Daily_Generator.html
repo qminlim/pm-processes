@@ -463,7 +463,7 @@ select.styled {
   <!-- Today's card -->
   <div class="today-card" id="today-card">
     <div class="today-info">
-      <h2 id="today-greeting">Good morning, Ting! 👋</h2>
+      <h2 id="today-greeting">Good morning, Qmin! 👋</h2>
       <p id="today-desc">Ready for today's PMP practice? Stay consistent to build exam confidence.</p>
       <div class="today-meta">
         <div class="tmeta" id="today-meta1">📅 20 Questions</div>
@@ -1656,7 +1656,7 @@ function updateDashboard() {
 
   const hour = new Date().getHours();
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
-  document.getElementById('today-greeting').textContent = `${greeting}, Ting! 👋`;
+  document.getElementById('today-greeting').textContent = `${greeting}, Qmin! 👋`;
 
   if (todaySess?.complete) {
     document.getElementById('today-desc').textContent = `You completed today's practice with ${todaySess.score}%! Want another session?`;
